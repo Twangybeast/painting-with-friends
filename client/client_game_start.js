@@ -1,3 +1,3 @@
-module.exports = function(data) {
+const game_start = function(data) {
   
 }

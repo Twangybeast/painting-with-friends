@@ -24,6 +24,10 @@ socket.on('users list', (data) => {
 	usersListEl.innerHTML = `<li>${socket.id.substr(0,5)} (you)</li>${lis}`;
 });
 
+socket.on('draw_line', draw_line.bind(this));
+socket.on('game_start', game_start.bind(this));
+socket.on('game_stop', game_stop.bind(this));
+
 function drawOnCanvas() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
