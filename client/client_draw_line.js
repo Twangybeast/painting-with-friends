@@ -1,4 +1,4 @@
-module.exports = function(data) {
+const draw_line = function(data) {
   var line = data.line;
   ctx.beginPath();
   ctx.lineWidth = 2;
