@@ -42,3 +42,7 @@ function sendUsersUpdate() {
 http.listen(PORT, () => {
 	console.log(`Server listening on http://localhost:${PORT}`);
 });
+
+app.post('/reset', function(req, res) {
+	res.status(404).json({'data':'Reset not found'});
+});
