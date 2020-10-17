@@ -6,6 +6,9 @@ const usersListEl = document.querySelector('.users-list ul');
 const canvas = document.querySelector('.drawing-canvas');
 const ctx = canvas.getContext('2d');
 
+//model image
+const image = document.querySelector('.model-image');
+
 // TODO: make this work with resized windows
 let width = canvas.width;
 let height = canvas.height;
@@ -36,4 +39,5 @@ function update() {
 	requestAnimationFrame(update);
 	drawOnCanvas();
 }
+
 update();
