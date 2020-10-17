@@ -17,6 +17,7 @@ body {
 
 .drawing-canvas {
 	border: 2px solid var(--color-2);
+	cursor: none;
 }
 
 .container {
