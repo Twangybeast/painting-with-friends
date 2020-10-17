@@ -12,10 +12,7 @@ app.use(cors({
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-	console.log('Got request to /');
-	res.send('Hello world');
-});
+app.use(express.static(__dirname + '/client'));
 
 http.listen(PORT, () => {
 	console.log(`Server listening on http://localhost:${PORT}`);
