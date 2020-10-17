@@ -7,6 +7,7 @@
 	<title>Painting With Friends</title>
 	<link rel="stylesheet" href="style.css">
 	<script src="socket.io.slim.js" charset="utf-8"></script>
+	<script src="Mouse.js" charset="utf-8"></script>
 	<script src="client_draw_line.js" charset="utf-8"></script>
 	<script src="client_game_start.js" charset="utf-8"></script>
 	<script src="client_game_stop.js" charset="utf-8"></script>
@@ -15,7 +16,10 @@
 <body>
 	<header class="header">
 		<h1>Painting with Friends</h1>
-		<span class="timer">Time left: <span class="time-left">0:00</span></span>
+		<span class="timer">Time left:
+			<span class="minutes-left">0</span>:
+			<span class="seconds-left">00</span>
+		</span>
 	</header>
 
 	<div class="container">
