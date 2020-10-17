@@ -24,6 +24,10 @@ socket.on('users list', (data) => {
 	usersListEl.innerHTML = `<li>${socket.id.substr(0,5)} (you)</li>${lis}`;
 });
 
+// import
+const draw_line = require('./client_draw_line')
+socket.on('draw_line', draw_line.bind(this))
+
 function drawOnCanvas() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
