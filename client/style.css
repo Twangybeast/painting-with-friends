@@ -1,6 +1,50 @@
+:root {
+	--bg: #23272a;
+	--color-1: #2c2f33;
+	--color-2: #99aab5;
+}
+
 *, ::before, ::after {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 }
 
+body {
+	background: var(--bg);
+	color: #eee;
+}
+
+.drawing-canvas {
+	border: 2px solid var(--color-2);
+}
+
+.container {
+	display: grid;
+	grid-template-columns: 1fr 3fr 1fr;
+	grid-gap: 32px;
+}
+
+.header {
+	background: var(--color-1);
+	padding: 32px;
+	margin-bottom: 32px;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.section {
+	background: var(--color-1);
+	padding: 32px;
+}
+
+.minisection {
+	padding: 32px;
+	background: rgba(200,200,220,0.1);
+}
+
+ul {
+	list-style-type: none;
+}

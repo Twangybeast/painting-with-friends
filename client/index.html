@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,16 +8,31 @@
 	<link rel="stylesheet" href="style.css">
 	<script src="socket.io.slim.js" charset="utf-8"></script>
 </head>
+
 <body>
-	placeholder, probably needs a canvas
+	<header class="header">
+		<h1>Painting with Friends</h1>
+		<span class="timer">Time left: <span class="time-left">0:00</span></span>
+	</header>
 
-	<canvas class="drawing-canvas" width="500" height="500"></canvas>
+	<div class="container">
+		<div class="section left">
+			TODO
+		</div>
 
-	<div class="users-list">
-		Connected users:
-		<ul></ul>
+		<div class="section middle">
+			<canvas class="drawing-canvas" width="1000" height="500"></canvas>
+		</div>
+
+		<div class="section right">
+			<div class="minisection users-list">
+				<h2>Connected users</h2>
+				<ul></ul>
+			</div>
+		</div>
 	</div>
 
-	<script src="main.js" charset="utf-8"></script>
+	<script src="client.js" charset="utf-8"></script>
 </body>
+
 </html>
