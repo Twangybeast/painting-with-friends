@@ -18,6 +18,10 @@ app.use(express.static(__dirname + '/client'));
 // list of connected members
 const connectedSockets = [];
 
+// import socket functions
+const game_start = require('./sockets/server_game_start')
+const draw_line = require('./sockets/server_draw_line')
+
 io.on('connection', (socket) => {
 	connectedSockets.push(socket);
 	console.log(`New client ${socket.id} connected. Users: ${connectedSockets.length}`);
@@ -33,6 +37,9 @@ io.on('connection', (socket) => {
 		console.log(`Client ${socket.id} disconnected. Users: ${connectedSockets.length}`);
 		sendUsersUpdate();
 	});
+
+	socket.on('game_start', game_start.bind(this))
+	socket.on('draw_line', draw_line.bind(this))
 });
 
 function sendUsersUpdate() {
