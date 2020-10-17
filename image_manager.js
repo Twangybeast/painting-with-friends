@@ -10,3 +10,7 @@ const IMAGE_DATA = [
         ]
     }
 ];
+
+module.exports = {
+    'image_data': IMAGE_DATA
+}

@@ -18,6 +18,9 @@ app.use(express.static(__dirname + '/client'));
 // list of connected members
 const connectedSockets = [];
 
+// import images
+const image_manager = require('./image_manager')
+
 // import socket functions
 const game_start = require('./sockets/server_game_start')
 const draw_line = require('./sockets/server_draw_line')
