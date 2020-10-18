@@ -59,5 +59,9 @@ module.exports.onGameStart = function(io, socket, data, image_manager, roomSocke
         if (roomInfos[room]) {
             roomInfos[room]['started'] = false;
         }
+        // reset back to not ready
+        for (let i = 0; i < 4 && i < roomSockets.length; i++) {
+            roomSockets[i].isReady = false;
+        }
     }, GAME_LENGTH);
 }
