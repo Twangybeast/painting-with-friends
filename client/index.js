@@ -21,6 +21,7 @@ const fetch_rooms = async (dropDown) => {
                 div.innerHTML = "Room " + element.room + ": " + element.current + " of " + element.max + " Players";
                 if (!element.started) {
                     var buttonEl = document.createElement("a");
+                    buttonEl.style.marginLeft = "20px";
                     buttonEl.href = "http://localhost:8000/room.html?room=" + encodeURIComponent(element.room)
                     var buttonTextEl = document.createElement("span");
                     //TODO update class
