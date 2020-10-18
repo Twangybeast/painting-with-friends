@@ -2,7 +2,7 @@ const room = new URLSearchParams(window.location.search).get('room') || 'xz1kdfj
 let name = sessionStorage.getItem('name')
 if (!name) {
 	name = 'Player#' + Math.floor(Math.random() * 1000 + 1)
-	sessionStorage.setItem('name', name)
+	sessionStorage.setItem('name', name);
 }
 const SOCKET_URL = 'http://localhost:8000?room=' + room + '&name=' + encodeURIComponent(name);
 const socket = io(SOCKET_URL, { autoConnect: true});
@@ -60,6 +60,18 @@ socket.on('users_list', (data) => {
 		let colorSpan = `<span class="color-block" style="background:${color}"></span>`;
 		return `<li class="${classList}">${colorSpan}${text}</li>`;
 	}).join('');
+
+	// set name
+	usersListEl.querySelector('.you').addEventListener('click', () => {
+		let newName = prompt(`Set your name (currently ${name}):`);
+		if (newName) {
+			name = newName;
+			sessionStorage.setItem('name', name);
+			socket.emit('new_name', {
+				name,
+			});
+		}
+	});
 });
 
 socket.on('game_start', (data) => {

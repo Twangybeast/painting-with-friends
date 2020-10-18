@@ -16,12 +16,15 @@
 }
 
 @font-face {
-    font-family: 'Hatching Love Demo';
-    src: url('fonts/HatchingLoveDemoRegular.woff2') format('woff2'),
-        url('fonts/HatchingLoveDemoRegular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+	font-family: 'Hatching Love Demo';
+	src: url('fonts/HatchingLoveDemoRegular.woff2') format('woff2'), url('fonts/HatchingLoveDemoRegular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+html, body {
+	height: 100%;
 }
 
 body {
@@ -39,6 +42,7 @@ button {
 	background: var(--color-2);
 	cursor: pointer;
 }
+
 input {
 	cursor: pointer;
 }
@@ -47,16 +51,18 @@ input {
 	margin-top: 32px;
 	transition: 0.2s;
 }
+
 .ready-button:hover {
 	background: var(--primary);
 }
+
 .ready-button.hide {
 	display: none;
 }
 
-.drawing-canvas {	
+.drawing-canvas {
 	background-color: #FFF;
-	cursor: none;		
+	cursor: none;
 	border-radius: 10px;
 }
 
@@ -69,7 +75,6 @@ input {
 .header {
 	padding: 16px;
 	margin-bottom: 32px;
-
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -97,9 +102,11 @@ h1 {
 .paint-option {
 	margin-top: 32px;
 }
+
 .paint-option input {
 	width: 100%;
 }
+
 .paint-option label {
 	display: block;
 }
@@ -107,11 +114,13 @@ h1 {
 .minisection {
 	padding: 32px;
 	margin-bottom: 32px;
-	background: rgba(200,200,220,0.1);
+	background: rgba(200, 200, 220, 0.1);
 }
+
 .minisection.model-image {
 	padding: 0;
 }
+
 .minisection.model-image h2 {
 	padding: 32px;
 }
@@ -129,15 +138,20 @@ ul {
 .users-list li.not-ready {
 	color: #e6433c;
 }
+
 .users-list li.you {
 	font-weight: bold;
+	cursor: pointer;
 }
+
 .users-list li.not-ready::after {
 	content: " (not ready)";
 }
+
 .users-list li.you::after {
 	content: " (you)";
 }
+
 .users-list li.you.not-ready::after {
 	content: " (not ready) (you)";
 }
@@ -162,10 +176,11 @@ ul {
 	transform-origin: 50vw 50vh;
 	transform: rotate(-20deg) translate(-200px, 100px);
 	pointer-events: none;
-	background: rgba(226,27,60, 0.7);
+	background: rgba(226, 27, 60, 0.7);
 	color: white;
 	backdrop-filter: blur(5px)
 }
+
 .disconnected-banner.show {
 	display: block;
 }
@@ -176,16 +191,14 @@ ul {
 	right: 0;
 	margin-right: 30px;
 	padding: 16px;
-
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
 
-.footer h1{
-	font-size: 2.5em; 
-
+.footer h1 {
+	font-size: 2.5em;
 	font-family: 'Hatching Love Demo';
-    font-weight: bold;
-    font-style: normal;
+	font-weight: bold;
+	font-style: normal;
 }

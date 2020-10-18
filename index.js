@@ -79,6 +79,12 @@ io.on('connection', (socket) => {
 	socket.on('draw_line', (data) => {
 		io.to(room).emit('draw_line', { line: data.line });
 	})
+
+	socket.on('new_name', (data) => {
+		console.log(`Client ${socket.id} set their username to ${data.name}`);
+		socket.username = data.name;
+		sendUsersUpdate(room);
+	})
 });
 
 function sendUsersUpdate(room) {
