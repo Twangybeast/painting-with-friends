@@ -5,12 +5,12 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Painting With Friends</title>
-	<link rel="stylesheet" href="style.css">
-	<script src="socket.io.slim.js" charset="utf-8"></script>
-	<script src="Mouse.js" charset="utf-8"></script>
-	<script src="Timer.js" charset="utf-8"></script>
-	<script src="client_game_start.js" charset="utf-8"></script>
-	<script src="client_game_stop.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="/style.css">
+	<script src="/socket.io.slim.js" charset="utf-8"></script>
+	<script src="/Mouse.js" charset="utf-8"></script>
+	<script src="/Timer.js" charset="utf-8"></script>
+	<script src="/client_game_start.js" charset="utf-8"></script>
+	<script src="/client_game_stop.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -21,7 +21,7 @@
 		<div class="section left">
 			<div class="minisection model-image">
 				<h2>Model image</h2>
-				<img class="model" src="images/default.jpg" />
+				<img class="model" src="/images/default.jpg" />
 			</div>
 			<div class="timer">
 				<span>Time left</span>
@@ -70,9 +70,10 @@
 	<div class="disconnected-banner">
 		<h1>DISCONNECTED</h1>
 	</div>
+	<script>const room = 'ROOM_ID_REPLACED_BY_EXPRESS';</script>
 	<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.1/dist/confetti.browser.min.js"></script>
-	<script src="client.js" charset="utf-8"></script>
-	<script src="options.js" charset="utf-8"></script>
+	<script src="/client.js" charset="utf-8"></script>
+	<script src="/options.js" charset="utf-8"></script>
 </body>
 
 </html>

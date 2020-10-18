@@ -1,20 +1,28 @@
-const MY_URL = 'http://localhost:8000'
+// const MY_URL = 'https://paintin.azurewebsites.net';
+// const ROOM_URL = 'https://www.paintin.tech';
+
+const MY_URL = 'http://localhost:8000';
+const ROOM_URL = 'http://localhost:8000';
+
 // handles name change as you type
 
 const nameChange = document.getElementById("name-change");
 const inputHandler = function (e) {
-    sessionStorage.setItem('name', e.target.value);
-    console.log(sessionStorage.getItem('name'));
+    localStorage.setItem('name', e.target.value);
 }
 
 nameChange.addEventListener('input', inputHandler);
 nameChange.addEventListener('propertychange', inputHandler);
+nameChange.value = localStorage.getItem('name');
+
+function getHrefForRoom(roomName) {
+    return MY_URL + "/foyer/" + encodeURIComponent(roomName);
+}
 
 function addCreateButton(dropDown) {
     let el = document.createElement("li");
     let roomName = generateName();
-    const href = MY_URL + "/room.html?room=" + encodeURIComponent(roomName);
-    el.innerHTML = `Create your own room (${roomName}) <a class='join-room' href='${href}'>Create</a>!`
+    el.innerHTML = `Create your own room (${roomName}) <a class='join-room' href='${getHrefForRoom(roomName)}'>Create</a>!`
     dropDown.appendChild(el);
 }
 
@@ -29,11 +37,10 @@ const fetch_rooms = async (dropDown) => {
             rooms.forEach(element => {
                 var el = document.createElement("li");
                 var div = document.createElement("div");
-                let innerHTML = `<span class='room-name'>Room <strong>${escapeHtml(element.room)}</strong></span><span>: ${element.current}/${element.max} players`;
+                let innerHTML = `<span class='room-name'>Foyer <strong>${escapeHtml(element.room)}</strong></span><span>: ${element.current}/${element.max} players`;
 
                 if (!element.started) {
-                    const href = MY_URL + "/room.html?room=" + encodeURIComponent(element.room);
-                    innerHTML += ` <a class='join-room' href='${href}'>Join</a>`;
+                    innerHTML += ` <a class='join-room' href='${getHrefForRoom(element.room)}'>Join</a>`;
                 }
                 innerHTML += '</span>'
                 div.innerHTML = innerHTML;

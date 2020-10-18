@@ -1,10 +1,10 @@
-const room = new URLSearchParams(window.location.search).get('room') || 'xz1kdfj'
-let name = sessionStorage.getItem('name')
+let name = localStorage.getItem('name');
+console.log(name);
 if (!name) {
 	name = 'Player#' + Math.floor(Math.random() * 1000 + 1)
-	sessionStorage.setItem('name', name);
 }
 const MY_URL = 'http://localhost:8000'
+// const MY_URL = 'https://paintin.azurewebsites.net'
 const SOCKET_URL = MY_URL + '?room=' + room + '&name=' + encodeURIComponent(name);
 const socket = io(SOCKET_URL);
 
@@ -94,7 +94,7 @@ socket.on('users_list', (data) => {
 		let newName = prompt(`Set your name (currently ${name}):`);
 		if (newName) {
 			name = newName;
-			sessionStorage.setItem('name', name);
+			localStorage.setItem('name', name);
 			socket.emit('new_name', {
 				name,
 			});

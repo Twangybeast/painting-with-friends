@@ -1,10 +1,12 @@
+const path = require('path');
+const fs = require('fs');
 const express = require('express');
 const app = express();
 const cors = require('cors');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-const CLIENT_URL = 'http://localhost';
+const CLIENT_URL = 'https://www.paintin.tech';
 const PORT = process.env.PORT || 8000;
 
 app.use(cors({
@@ -13,6 +15,8 @@ app.use(cors({
 
 app.use(express.json());
 
+const roomHTMLPath = path.resolve(__dirname + '/client/room.html');
+let roomHTMLContent = fs.readFileSync(roomHTMLPath, 'utf8');
 app.use(express.static(__dirname + '/client'));
 
 // list of connected members
@@ -45,6 +49,11 @@ app.get('/open-rooms', (req, res) => {
 	res.send({
 		rooms: result,
 	});
+});
+
+app.get('/foyer/:id', (req, res) => {
+	const id = req.params.id;
+	res.send(roomHTMLContent.replace('ROOM_ID_REPLACED_BY_EXPRESS', id));
 });
 
 io.on('connection', (socket) => {
@@ -150,7 +159,7 @@ http.listen(PORT, () => {
 	console.log(`Server listening on http://localhost:${PORT}`);
 });
 
-app.get('/reset', function(req, res) {
+app.get('/reset', function (req, res) {
 	for (let s of connectedSockets) {
 		s.disconnect();
 	}
