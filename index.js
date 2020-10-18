@@ -18,6 +18,9 @@ app.use(express.static(__dirname + '/client'));
 // list of connected members
 const connectedSockets = [];
 
+const rooms2sockets = {};
+const roomInfos = {};
+
 // import images
 const image_manager = require('./image_manager')
 
@@ -25,16 +28,25 @@ const image_manager = require('./image_manager')
 const { onGameStart, hasGameStarted } = require('./sockets/server_game_start');
 
 io.on('connection', (socket) => {
+	let room = socket.handshake.query.room
 	// disallow more than 4 players or joining already started game
-	if (connectedSockets.length === 4 || hasGameStarted()) {
+	// console.log(rooms2sockets[room])
+	if (rooms2sockets[room] && (rooms2sockets[room].length === 4 || hasGameStarted(room, roomInfos))) {
 		socket.disconnect();
 		return;
 	}
 
+	if (!rooms2sockets[room]) {
+		rooms2sockets[room] = []
+		roomInfos[room] = {}
+	}
+
 	socket.isReady = false;
 	connectedSockets.push(socket);
+	rooms2sockets[room].push(socket);
+	socket.join(room)
 	console.log(`New client ${socket.id} connected. Users: ${connectedSockets.length}`);
-	sendUsersUpdate();
+	sendUsersUpdate(room);
 
 	socket.on('disconnect', () => {
 		// remove from connectedSockets list
@@ -42,25 +54,39 @@ io.on('connection', (socket) => {
 		if (index > -1) {
 			connectedSockets.splice(index, 1);
 		}
+		// remove from rooms2sockets list
+		if (rooms2sockets[room]) {
+			const idx = rooms2sockets[room].indexOf(socket);
+			if (idx > -1) {
+				rooms2sockets[room].splice(index, 1)
+				// delete room
+				if (rooms2sockets[room].length === 0) {
+					delete rooms2sockets[room]
+					delete roomInfos[room]
+				}
+			}
+		}
 
 		console.log(`Client ${socket.id} disconnected. Users: ${connectedSockets.length}`);
-		sendUsersUpdate();
+		sendUsersUpdate(room);
 	});
 
 	socket.on('game_start', (data) => {
-		onGameStart(socket, data, image_manager, connectedSockets);
-		sendUsersUpdate();
+		onGameStart(io, socket, data, image_manager, rooms2sockets[room], room, roomInfos);
+		sendUsersUpdate(room);
 	});
 	socket.on('draw_line', (data) => {
-		io.emit('draw_line', { line: data.line });
+		io.to(room).emit('draw_line', { line: data.line });
 	})
 });
 
-function sendUsersUpdate() {
-	io.emit('users_list', connectedSockets.map((s) => ({
-		id: s.id,
-		isReady: s.isReady,
-	})));
+function sendUsersUpdate(room) {
+	if (rooms2sockets[room]) {
+		io.to(room).emit('users_list', rooms2sockets[room].map((s) => ({
+			id: s.id,
+			isReady: s.isReady,
+		})));
+	}
 }
 
 http.listen(PORT, () => {

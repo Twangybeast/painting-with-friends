@@ -1,4 +1,5 @@
-const SOCKET_URL = 'http://localhost:8000';
+const room = new URLSearchParams(window.location.search).get('room') || 'xz1kdfj'
+const SOCKET_URL = 'http://localhost:8000?room=' + room;
 const socket = io(SOCKET_URL, { autoConnect: true });
 
 const usersListEl = document.querySelector('.users-list ul');

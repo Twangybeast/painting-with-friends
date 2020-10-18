@@ -14,21 +14,23 @@ function shuffle(a) {
     return a;
 }
 
-module.exports.hasGameStarted = () => hasGameStarted;
+module.exports.hasGameStarted = (room, roomInfos) => {
+    return !!(!roomInfos[room] || roomInfos[room]['started']);
+}
 
-module.exports.onGameStart = function(socket, data, image_manager, connectedSockets) {
+module.exports.onGameStart = function(io, socket, data, image_manager, roomSockets, room, roomInfos) {
     console.log(`Client ${socket.id} is ready!`);
     socket.isReady = true;
 
     // wait until 4 players connect before starting the game
-    let numReadySockets = connectedSockets.map((s) => s.isReady).filter((r) => r).length;
+    let numReadySockets = roomSockets.map((s) => s.isReady).filter((r) => r).length;
     if (numReadySockets < 4) {
         console.log(`Currently only ${numReadySockets} players are ready.`);
         return;
     }
 
-    console.log(`Game has started!`);
-    hasGameStarted = true;
+    console.log(`Game has started in room ${room}!`);
+    roomInfos[room]['started'] = true;
 
     const image = image_manager.image_data[Math.floor(Math.random() * image_manager.image_data.length)];
     let stop_time = Date.now() + GAME_LENGTH
@@ -40,20 +42,20 @@ module.exports.onGameStart = function(socket, data, image_manager, connectedSock
     }
     let ordering = [0, 1, 2, 3];
     shuffle(ordering)
-    for (let i = 0; i < 4 && i < connectedSockets.length; i++) {
-        let s = connectedSockets[i]
+    for (let i = 0; i < 4 && i < roomSockets.length; i++) {
+        let s = roomSockets[i]
         payload['players'].push({
             'name': s.id,
             'color': image['colors'][ordering[i]][0]
         });
     }
 
-    for (let i = 0; i < 4 && i < connectedSockets.length; i++) {
+    for (let i = 0; i < 4 && i < roomSockets.length; i++) {
         payload['me'] = i;
-        connectedSockets[i].emit('game_start', payload);
+        roomSockets[i].emit('game_start', payload);
     }
     setTimeout(function () {
-        for (let s of connectedSockets) {
+        for (let s of roomSockets) {
             s.emit('game_end', {})
         }
     }, GAME_LENGTH);
