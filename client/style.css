@@ -81,6 +81,10 @@ h1 {
 	color: var(--color-3);
 }
 
+h3 {
+	font-size: 14px;
+}
+
 .section {
 	background: rgba(224, 224, 224, 0.75);
 }
