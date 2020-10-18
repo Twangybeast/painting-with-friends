@@ -27,6 +27,26 @@ const image_manager = require('./image_manager')
 // import socket functions
 const { onGameStart, hasGameStarted } = require('./sockets/server_game_start');
 
+app.get('/open-rooms', (req, res) => {
+	console.log('Got request for open-rooms');
+
+	let result = [];
+	for (let room of Object.keys(roomInfos)) {
+		result.push({
+			room,
+			current: rooms2sockets[room].length,
+			max: 4,
+			started: roomInfos[room].started || false,
+		});
+	}
+
+	console.log(result);
+
+	res.send({
+		rooms: result,
+	});
+});
+
 io.on('connection', (socket) => {
 	socket.username = socket.handshake.query.name
 	let room = socket.handshake.query.room
@@ -85,6 +105,12 @@ io.on('connection', (socket) => {
 		socket.username = data.name;
 		sendUsersUpdate(room);
 	})
+
+	socket.on('mouse_move', (data) => {
+		socket.mouseX = data.x;
+		socket.mouseY = data.y;
+		sendCursorsUpdate(room);
+	})
 });
 
 function sendUsersUpdate(room) {
@@ -93,6 +119,16 @@ function sendUsersUpdate(room) {
 			name: s.username,
 			id: s.id,
 			isReady: s.isReady,
+		})));
+	}
+}
+
+function sendCursorsUpdate(room) {
+	if (rooms2sockets[room]) {
+		io.to(room).emit('mouse_move', rooms2sockets[room].map((s) => ({
+			x: s.mouseX || 0,
+			y: s.mouseY || 0,
+			id: s.id
 		})));
 	}
 }
