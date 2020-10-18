@@ -16,6 +16,7 @@ const mouse = new MouseJS(canvas);
 let prevPos = {x: -1, y: -1}; // previous mouse position (updated every few msec)
 const dpr = window.devicePixelRatio; // needed to fix blurriness for high DPI displays
 let playersToColors = []; // maps player index to their current color
+let playerToPalette = []
 let cursors = []; // a list of {x, y, id}
 
 const config = {
@@ -48,6 +49,29 @@ socket.on('disconnect', (reason) => {
 	document.querySelector('.disconnected-banner').classList.add('show');
 });
 
+
+function getPaletteBackground(colors) {
+    if (!colors) {
+        return `background:${'transparent'};`;
+    } else {
+        if (colors.length === 1) {
+            return `background:${colors[0]};`;
+        } else if (colors.length === 2) {
+            return `background: linear-gradient(110deg, ${colors[0]} 0%, ${colors[0]} 48%, ${colors[1]} 52%);`
+        } else {
+            if (colors.length !== 3) {
+                console.log(`Unexpected colors [${colors}] of length ${colors.length}`)
+            }
+            return `background: linear-gradient(110deg, ${colors[0]} 0%, ${colors[0]} 31%, `
+                + `${colors[1]} 35%, ${colors[1]} 64%, ${colors[2]} 68%);`
+        }
+    }
+}
+
+function getColorBorder(color) {
+    return `2px solid ${color}`
+}
+
 socket.on('users_list', (data) => {
 	console.log(data);
 	usersListEl.innerHTML = data.map((u, i) => {
@@ -57,7 +81,8 @@ socket.on('users_list', (data) => {
 			classList += ' you'
 		}
 		let color = playersToColors[i] || 'transparent';
-		let colorSpan = `<span class="color-block" style="background:${color}"></span>`;
+		let palette = playerToPalette[i];
+		let colorSpan = `<span class="color-block" style="${getPaletteBackground(palette)};border:${getColorBorder(color)}"></span>`;
 		return `<li class="${classList}">${colorSpan}${text}</li>`;
 	}).join('');
 
@@ -88,7 +113,7 @@ socket.on('color_update', (data) => {
 	const colorBlocks = document.querySelectorAll('.users-list .color-block');
 	playersToColors = data;
 	for (let i = 0; i < playersToColors.length; i++) {
-		colorBlocks[i].style.background = playersToColors[i];
+		colorBlocks[i].style.border = getColorBorder(playersToColors[i]);
 	}
 });
 
