@@ -54,7 +54,7 @@ module.exports.onGameStart = function(io, socket, data, image_manager, roomSocke
         let s = roomSockets[i]
         payload['players'].push({
             'name': s.id,
-            'color': image['colors'][ordering[i]][0]
+            'colors': image['colors'][ordering[i]]
         });
     }
 
