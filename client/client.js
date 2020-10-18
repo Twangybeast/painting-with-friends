@@ -49,7 +49,7 @@ socket.on('users list', (data) => {
 socket.on('game_start', game_start.bind(this));
 socket.on('game_stop', game_stop.bind(this));
 
-let lines = [{ start: [10, 20], end: [200, 480], color: "red", width: 10, opacity: 0.8 }];
+let lines = [];
 
 socket.on('draw_line', (data) => {
 	lines.push(data.line);
