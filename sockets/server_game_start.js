@@ -56,5 +56,8 @@ module.exports.onGameStart = function(io, socket, data, image_manager, roomSocke
     }
     setTimeout(function () {
         io.to(room).emit('game_stop', {})
+        if (roomInfos[room]) {
+            roomInfos[room]['started'] = false;
+        }
     }, GAME_LENGTH);
 }
