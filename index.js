@@ -42,7 +42,7 @@ io.on('connection', (socket) => {
 	});
 
 	socket.on('game_start', game_start(image_manager, connectedSockets))
-	socket.on('draw_line', draw_line.bind(this))
+	socket.on('draw_line', draw_line(io))
 });
 
 function sendUsersUpdate() {
