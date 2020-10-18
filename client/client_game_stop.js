@@ -4,4 +4,5 @@ const game_stop = function(data) {
 
   imageTitle.textContent = "ROUND OVER";
   clock.textContent = "OUT OF TIME";
+  clearInterval(intervalID);
 }
