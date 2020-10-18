@@ -24,7 +24,6 @@ const config = {
 	cursorLineWidth: 5 * dpr,
 	cursorDownLineWidth: 2 * dpr,
 };
-console.log(dpr);
 
 // Scale for DPI
 let width = canvas.width = config.width * dpr;
@@ -64,7 +63,6 @@ socket.on('game_start', (data) => {
 	playersToColors = players.map((p) => p.color);
 	for (let i = 0; i < players.length; i++) {
 		colorBlocks[i].style.background = playersToColors[i];
-		console.log(colorBlocks[i], playersToColors[i]);
 	}
 
 	intervalID = setInterval(checkForLines, 10);
