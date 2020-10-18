@@ -2,7 +2,11 @@ const game_start = function (data, config) {
   // model image
   const image = document.querySelector('img.model');
   // image name
-  const imageTitle = document.querySelector('.model-image > h2')
+  const imageTitle = document.querySelector('.model-image > h2');
+
+  // clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  lines = [];
 
   let me = data.me;
 
@@ -13,7 +17,6 @@ const game_start = function (data, config) {
   new Timer().initializeClock('timer', deadline);
   config.color = color;
   image.src = path;
-  imageTitle.textContent = data.image_name
-
+  imageTitle.textContent = data.image_name;
   return data.players;
 }
