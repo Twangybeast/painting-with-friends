@@ -1,5 +1,5 @@
 :root {
-	--bg: #f0f0f0;
+	--bg: #e0e2e4;
 	--color-1: #311B92;
 	--color-2: #5E35B1;
 	--color-3: #673AB7;
@@ -61,6 +61,7 @@ input {
 .drawing-canvas {
 	background-color: #FFF;
 	cursor: none;
+	box-shadow: 0 1px 4px gray;
 }
 
 .container {
@@ -82,7 +83,9 @@ h1 {
 }
 
 .section {
-	background: rgba(224, 224, 224, 0.75);
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
 }
 
 .middle {
@@ -114,6 +117,7 @@ h1 {
 .minisection {
 	padding: 32px;
 	margin-bottom: 32px;
+	background: rgba(249, 250, 251, 0.8);
 }
 
 .minisection.model-image {
@@ -128,6 +132,7 @@ img.model {
 	object-fit: cover;
 	width: 100%;
 	max-width: 100%;
+	margin-bottom: -10px; /* fixes weird bottom spacing bug */
 }
 
 ul {
@@ -136,26 +141,21 @@ ul {
 
 .users-list li {
 	width: 100%;
-    padding: 12px;
+	padding: 12px;
 	padding-left: 60px;
-    background: #fff;
-    margin: 16px 0;
-    position: relative;
-}
-.users-list .color-block {
-    position: absolute;
-	display: inline-block;
-    width: 48px;
-    height: 100%;
-    top: 0;
-    left: 0;
+	background: #fff;
+	margin: 16px 0;
+	position: relative;
 }
 
-.users-list li.ready {
-	color: green;
-}
-.users-list li.not-ready {
-	color: #e6433c;
+.users-list .color-block {
+	position: absolute;
+	display: inline-block;
+	width: 48px;
+	height: 100%;
+	top: 0;
+	left: 0;
+	box-shadow: 0px 0 5px -2px gray;
 }
 
 .users-list li.you {
@@ -163,29 +163,51 @@ ul {
 	cursor: pointer;
 }
 
+.users-list li::after {
+	content: "";
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	right: 12px;
+	top: calc(50% - 5px);
+	background: transparent;
+}
+
+.users-list li.you::before {
+	content: "";
+	position: absolute;
+
+	width: 0;
+	height: 0;
+	border-top: 6px solid transparent;
+	border-bottom: 6px solid transparent;
+	border-right: 10px solid black;
+
+	right: 34px;
+	top: calc(50% - 5px);
+}
+
 .users-list li.not-ready::after {
-	content: " (not ready)";
+	background: #e6433c;
 }
-
-.users-list li.you::after {
-	content: " (you)";
-}
-
-.users-list li.you.not-ready::after {
-	content: " (not ready) (you)";
+.users-list li.ready::after {
+	background: green;
 }
 
 .timer {
 	display: flex;
 	justify-content: space-between;
 	font-size: 34px;
-	background: #ccc;
+	background: rgba(249, 250, 251, 0.8);
 }
-.timer > span {
+
+.timer>span {
 	padding: 12px 18px;
 }
-.timer > span:first-child {
-	background: #aaa;
+
+.timer>span:last-child {
+	background: white;
 }
 
 .disconnected-banner {
