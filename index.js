@@ -27,6 +27,26 @@ const image_manager = require('./image_manager')
 // import socket functions
 const { onGameStart, hasGameStarted } = require('./sockets/server_game_start');
 
+app.get('/open-rooms', (req, res) => {
+	console.log('Got request for open-rooms');
+
+	let result = [];
+	for (let room of Object.keys(roomInfos)) {
+		result.push({
+			room,
+			current: rooms2sockets[room].length,
+			max: 4,
+			started: roomInfos[room].started || false,
+		});
+	}
+
+	console.log(result);
+
+	res.send({
+		rooms: result,
+	});
+});
+
 io.on('connection', (socket) => {
 	socket.username = socket.handshake.query.name
 	let room = socket.handshake.query.room
