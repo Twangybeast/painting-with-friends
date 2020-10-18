@@ -37,6 +37,12 @@ const game_start = function (socket, data, config) {
   config.color = colors[0];
   setBackgroundColor(config.color);
 
+  playerToPalette = []
+  let player;
+  for (player of data.players) {
+      playerToPalette.push(player.colors)
+  }
+
   document.querySelector('.color-options').innerHTML = config.colors.map((c) => `<div class="color-option" style="background:${c}"></div>`).join('');
   document.querySelector('.color-options .color-option:first-child').classList.add('selected');
   listenForNewColorSelection(socket, config);
