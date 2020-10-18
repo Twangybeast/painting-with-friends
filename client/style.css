@@ -41,10 +41,32 @@ body {
 	padding: 32px;
 }
 
+.paint-option {
+	margin-top: 32px;
+}
+.paint-option input {
+	width: 100%;
+}
+.paint-option label {
+	display: block;
+}
+
 .minisection {
 	padding: 32px;
 	margin-bottom: 32px;
 	background: rgba(200,200,220,0.1);
+}
+.minisection.model-image {
+	padding: 0;
+}
+.minisection.model-image h2 {
+	padding: 32px;
+}
+
+.model-image {
+	object-fit: cover;
+	width: 100%;
+	max-width: 100%;
 }
 
 ul {

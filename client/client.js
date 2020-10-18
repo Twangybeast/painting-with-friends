@@ -14,6 +14,7 @@ const config = {
 	height: 500,
 	color: "green", // user's color
 	drawWidth: 10, // NOT scaled by DPR
+	drawOpacity: 1, // range of 0 to 1
 	cursorRadius: 10 * dpr,
 	cursorDownRadius: 8 * dpr,
 	cursorColor: "#99aab5",
@@ -45,11 +46,14 @@ socket.on('users list', (data) => {
 	usersListEl.innerHTML = `<li>${socket.id.substr(0, 5)} (you)</li>${lis}`;
 });
 
-socket.on('draw_line', draw_line.bind(this));
 socket.on('game_start', game_start.bind(this));
 socket.on('game_stop', game_stop.bind(this));
 
-let lines = [{ start: [10, 20], end: [200, 480], color: "red", width: 10 }];
+let lines = [{ start: [10, 20], end: [200, 480], color: "red", width: 10, opacity: 0.8 }];
+
+socket.on('draw_line', (data) => {
+	lines.push(data.line);
+});
 
 function drawCursor() {
 	ctx.save();
@@ -72,6 +76,7 @@ function drawLines() {
 		ctx.lineTo(line.end[0] * dpr, line.end[1] * dpr);
 		ctx.strokeStyle = line.color;
 		ctx.lineWidth = line.width * dpr;
+		ctx.globalAlpha = line.opacity;
 		ctx.stroke();
 	}
 	ctx.restore();
@@ -99,9 +104,9 @@ function checkForLines() {
 			end: [mouse.x / dpr, mouse.y / dpr],
 			color: config.color,
 			width: config.drawWidth,
+			opacity: config.drawOpacity,
 		};
-		lines.push(newLine);
-		// socket.emit('draw_line', newLine);
+		socket.emit('draw_line', { line: newLine });
 	}
 	prevPos.x = mouse.x / dpr;
 	prevPos.y = mouse.y / dpr;

@@ -25,7 +25,10 @@
 
 	<div class="container">
 		<div class="section left">
-			<img class="model-image" />
+			<div class="minisection model-image">
+				<h2>Model image</h2>
+				<img class="model-image" src="/images/image3.png" />
+			</div>
 		</div>
 
 		<div class="section middle">
@@ -40,8 +43,15 @@
 			<div class="minisection paint-options">
 				<h2>Paint options</h2>
 				<div class="paint-options-control">
-					<input type="range" id="brush-width" min="1" max="40" value="10">
-					<label for="brush-width">Brush width (<span class="brush-width">10</span>)</label>
+					<div class="paint-option">
+						<input type="range" id="brush-width" min="1" max="40" value="10">
+						<label for="brush-width">Brush width (<span class="brush-width">10</span>)</label>
+					</div>
+
+					<div class="paint-option">
+						<input type="range" id="opacity" min="1" max="100" value="100">
+						<label for="opacity">Opacity (<span class="opacity">100</span>)</label>
+					</div>
 				</div>
 			</div>
 		</div>
