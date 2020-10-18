@@ -53,6 +53,18 @@ const IMAGE_DATA = [
             ['#846D44', '#010001'],
             ['#384E73', '#FFFDFF']
         ]
+    },
+    ,
+    {
+      'id': 5,
+      'path': '/images/image6.png',
+      'name': 'Among Us',
+      'colors': [
+        ['#57338d', '#d4e3ea'],
+        ['#feec42', '#f80502'],
+        ['#020001', '#893c46'],
+        ['#f2833c', '#ffffff']
+      ]
     }
 ];
 
