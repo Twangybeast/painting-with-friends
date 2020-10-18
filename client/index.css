@@ -13,6 +13,19 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+	transition: 0.2s ease-out;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+input {
+	border: 0;
+	outline: 0;
+	font: inherit;
 }
 
 @font-face {
@@ -27,20 +40,60 @@ html, body {
 	height: 100%;
 }
 
-.footer {
-	position: fixed;
-	bottom: 0;
-	right: 0;
-	margin-right: 30px;
-	padding: 16px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+body {
+	background: linear-gradient(125deg, #03c2d5, #0283d6);
+	color: white;
+	font-size: 20px;
 }
 
-.footer h1 {
-	font-size: 2.5em;
-	font-family: 'Hatching Love Demo';
+a {
+	color: green;
+}
+
+.container {
+	display: flex;
+	height: 100%;
+	align-items: center;
+	justify-content: center;
+}
+.section {
+	height: 100%;
+	padding: 64px;
+	/* background: linear-gradient(120deg, rgba(200,200,200,0.2),rgba(20,20,20,0.7)); */
+	display: flex;
+	align-items: center;
+}
+
+.right .instructions {
+	width: 500px;
+}
+
+.header-container h1 {
+	font-size: 4em;
 	font-weight: bold;
-	font-style: normal;
+	text-align: right;
+	letter-spacing: 0.5px;
+}
+
+.gallery {
+	text-align: right;
+}
+
+#name-change {
+	margin: 32px 0;
+	padding: 16px 32px;
+	width: 100%;
+	border-radius: 50px;
+}
+
+.uk-button {
+	border-radius: 50px;
+	border: 0;
+	background: white;
+	text-transform: none;
+	font-size: 20px;
+	padding: 8px 24px;
+}
+.uk-button:hover {
+	background: gray;
 }

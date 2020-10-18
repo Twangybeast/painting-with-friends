@@ -1,46 +1,56 @@
 <html>
-    <head>
-        <title>Painting With Friends | Home</title>
-        <link rel="stylesheet" href="index.css" />
-        <link type="text/css" rel="stylesheet" href="css/lightgallery.css" /> 
-        <!-- UIkit CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/css/uikit.min.css" />
 
-        <!-- UIkit JS -->
-        <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit-icons.min.js"></script>
-    </head>
-    <body>
-        <!--Open Room Selection-->
-        <div class="open-rooms">
-            <ul id="rooms">
-            </ul>
-        </div>
-        <!--Previous Gallery-->
-        <div class="gallery">
-            <div uk-lightbox>
-                <a class="uk-button uk-button-default" href="images/image1.jpg">Open Gallery</a>
-                <a class="uk-button uk-button-default" href="images/image2.jpg" style="display: none;"></a>
-                <a class="uk-button uk-button-default" href="images/image3.png" style="display: none;"></a>
-                <a class="uk-button uk-button-default" href="images/image4.png" style="display: none;"></a>
-                <a class="uk-button uk-button-default" href="images/image5.png" style="display: none;"></a>
-            </div>
-        </div>
-        <!--Form-->
-        <div class="change-name">
-            <form>
-                <input type="text" id="name-change"/>
-            </form>
-        </div>
-        
-        <div class="footer">
-            <h1>Painting with Friends</h1>
-        </div>
+<head>
+	<title>Painting With Friends | Home</title>
+	<!-- UIkit CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/css/uikit.min.css" />
+	<link rel="stylesheet" href="index.css" />
 
-        <script type="text/javascript">
-            lightGallery(document.getElementById('lightgallery')); 
-        </script>
+	<!-- UIkit JS -->
+	<script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit-icons.min.js"></script>
+</head>
 
-        <script src="index.js" charset="utf-8"></script>
-    </body>
+<body>
+
+	<div class="container">
+		<div class="section left">
+			<div class="inner-section">
+				<div class="header-container">
+					<h1>Painting<br>with Friends</h1>
+				</div>
+
+				<div class="gallery">
+					<div uk-lightbox>
+						<a class="uk-button uk-button-default" href="images/image1.jpg">View Gallery</a>
+						<a class="uk-button uk-button-default" href="images/image2.jpg" style="display: none;"></a>
+						<a class="uk-button uk-button-default" href="images/image3.png" style="display: none;"></a>
+						<a class="uk-button uk-button-default" href="images/image4.png" style="display: none;"></a>
+						<a class="uk-button uk-button-default" href="images/image5.png" style="display: none;"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="section right">
+			<div class="inner-section">
+				<div class="instructions">
+					How well can you cooperate with your friends and create a painting?
+					In the lobby, set your name by clicking on the name with the black arrow. Once you and 3 other fellow artists are ready, the timer will begin.
+					You and 3 other friends must draw one of the random images that comes up in the left panel. Each is in charge of a different set of colors. Change your color to one of your individual options in the bottom right corner. How closely can you draw the image that comes up?
+				</div>
+				<div class="change-name">
+					<input type="text" id="name-change" placeholder="Username" />
+				</div>
+
+				<div class="open-rooms">
+					<ul id="rooms">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="index.js" charset="utf-8"></script>
+</body>
+
 </html>
