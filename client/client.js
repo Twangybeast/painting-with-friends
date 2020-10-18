@@ -6,6 +6,7 @@ const usersListEl = document.querySelector('.users-list ul');
 const canvas = document.querySelector('.drawing-canvas');
 const ctx = canvas.getContext('2d');
 const mouse = new MouseJS(canvas);
+let prevPos = {x: -1, y: -1}; // previous mouse position (updated every few msec)
 const dpr = window.devicePixelRatio; // needed to fix blurriness for high DPI displays
 
 const config = {
@@ -82,8 +83,6 @@ function drawOnCanvas() {
 	drawCursor();
 }
 
-let prevPos = {x: -1, y: -1};
-
 function checkForLines() {
 	if (mouse.left.clickTime <= mouse.left.releaseTime) {
 		prevPos = {x: -1, y: -1};
@@ -102,6 +101,7 @@ function checkForLines() {
 			width: config.drawWidth,
 		};
 		lines.push(newLine);
+		// socket.emit('draw_line', newLine);
 	}
 	prevPos.x = mouse.x / dpr;
 	prevPos.y = mouse.y / dpr;

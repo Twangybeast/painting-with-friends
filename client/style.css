@@ -43,6 +43,7 @@ body {
 
 .minisection {
 	padding: 32px;
+	margin-bottom: 32px;
 	background: rgba(200,200,220,0.1);
 }
 
