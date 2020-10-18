@@ -11,6 +11,7 @@ let prevPos = {x: -1, y: -1}; // previous mouse position (updated every few msec
 const dpr = window.devicePixelRatio; // needed to fix blurriness for high DPI displays
 
 const config = {
+	name: '', // TODO
 	width: 1000,
 	height: 500,
 	color: "green", // user's color
@@ -39,14 +40,23 @@ socket.on('disconnect', (reason) => {
 	alert(`Connection to the server has been lost: ${reason}.`);
 });
 
-socket.on('users list', (data) => {
+socket.on('users_list', (data) => {
 	console.log(data);
-	let lis = data.filter((u) => u !== socket.id).map((u) => `<li>${u.substr(0, 5)}</li>`).join('');
-	usersListEl.innerHTML = `<li>${socket.id.substr(0, 5)} (you)</li>${lis}`;
+	usersListEl.innerHTML = data.map((u) => {
+		let text = u.name || u.id.substr(0, 5);
+		let classList = '';
+		if (!u.isReady) {
+			classList = 'not-ready';
+		}
+		if (u.id === socket.id) {
+			classList += ' you'
+		}
+		return `<li class="${classList}">${text}</li>`;
+	}).join('');
 });
 
 socket.on('game_start', (data) => {
-	game_start(data);
+	game_start(data, config);
 	setInterval(checkForLines, 10);
 });
 socket.on('game_stop', game_stop.bind(this));

@@ -1,7 +1,7 @@
 const IMAGE_DATA = [
     {
         'id': 0,
-        'path': 'image1.jpg',
+        'path': '/images/image1.jpg',
         'name': 'Tom and Jerry',
         'colors': [
             ['#7d8286'],
@@ -12,7 +12,7 @@ const IMAGE_DATA = [
     },
     {
         'id': 1,
-        'path': 'image2.jpg',
+        'path': '/images/image2.jpg',
         'name': 'Pikachu',
         'colors': [
             ['#ffd33e'],
@@ -23,7 +23,7 @@ const IMAGE_DATA = [
     },
     {
         'id': 2,
-        'path': 'image3.png',
+        'path': '/images/image3.png',
         'name': 'Mona Lisa',
         'colors': [
             ['#4d6b54'],
@@ -34,7 +34,7 @@ const IMAGE_DATA = [
     },
     {
         'id': 3,
-        'path': 'image4.png',
+        'path': '/images/image4.png',
         'name': 'Baby Yoda',
         'colors': [
             ['#8a7138'],

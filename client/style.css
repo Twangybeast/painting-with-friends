@@ -13,6 +13,7 @@
 
 body {
 	background: var(--bg);
+	font-family: 'Open Sans', sans-serif;
 	color: #eee;
 }
 
@@ -85,7 +86,7 @@ input {
 	padding: 32px;
 }
 
-.model-image {
+img.model {
 	object-fit: cover;
 	width: 100%;
 	max-width: 100%;
@@ -93,4 +94,14 @@ input {
 
 ul {
 	list-style-type: none;
+}
+
+.users-list li.not-ready {
+	color: #e6433c;
+}
+.users-list li.not-ready::after {
+	content: " (not ready)";
+}
+.users-list li.you {
+	font-weight: bold;
 }
