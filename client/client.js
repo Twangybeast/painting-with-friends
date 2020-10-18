@@ -24,6 +24,7 @@ const config = {
 	cursorLineWidth: 5 * dpr,
 	cursorDownLineWidth: 2 * dpr,
 };
+console.log(dpr);
 
 // Scale for DPI
 let width = canvas.width = config.width * dpr;
@@ -87,7 +88,7 @@ function drawCursor() {
 	ctx.save();
 	ctx.beginPath();
 	let isDrawing = mouse.left.clickTime > mouse.left.releaseTime;
-	let radius = config.drawWidth;
+	let radius = config.drawWidth * dpr / 2;
 	ctx.strokeStyle = isDrawing ? config.cursorDownColor : config.cursorColor;
 	ctx.lineWidth = isDrawing ? config.cursorDownLineWidth : config.cursorLineWidth;
 	ctx.arc(mouse.x, mouse.y, radius, 0, 2 * Math.PI);
@@ -144,5 +145,13 @@ function update() {
 	requestAnimationFrame(update);
 	drawOnCanvas();
 }
+
+const brushInput = document.getElementById('brush-width');
+window.addEventListener('wheel', function(e) {
+	let newValue = parseInt(brushInput.value) + (e.deltaY * -0.02);
+	newValue = Math.min(Math.max(brushInput.min, newValue), brushInput.max);
+	brushInput.value = newValue;
+	brushInput.dispatchEvent(new Event('change'))
+});
 
 update();
