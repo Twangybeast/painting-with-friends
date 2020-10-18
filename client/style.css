@@ -1,5 +1,5 @@
 :root {
-	--bg: #FFFFFF;
+	--bg: #f0f0f0;
 	--color-1: #311B92;
 	--color-2: #5E35B1;
 	--color-3: #673AB7;
@@ -28,18 +28,16 @@ html, body {
 }
 
 body {
-	background-image: url("images/background.jpg");
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
+	background: var(--bg);
 	font-family: 'Open Sans', sans-serif;
-	color: var(--color-3);
+	color: #111;
 }
 
 button {
 	border: 0;
 	padding: 8px 16px;
 	background: var(--color-2);
+	color: white;
 	cursor: pointer;
 }
 
@@ -63,13 +61,12 @@ input {
 .drawing-canvas {
 	background-color: #FFF;
 	cursor: none;
-	border-radius: 10px;
 }
 
 .container {
 	display: grid;
 	grid-template-columns: 2fr 4fr 2fr;
-	grid-gap: 8px;
+	grid-gap: 32px;
 }
 
 .header {
@@ -86,17 +83,20 @@ h1 {
 
 .section {
 	background: rgba(224, 224, 224, 0.75);
-	border-radius: 10px;
+}
+
+.middle {
+	display: flex;
+	align-items: center;
+	background: none;
 }
 
 .right {
-	padding: 16px;
-	margin-right: 10px;
+	margin-right: 32px;
 }
 
 .left {
-	padding: 16px;
-	margin-left: 10px;
+	margin-left: 32px;
 }
 
 .paint-option {
@@ -114,7 +114,6 @@ h1 {
 .minisection {
 	padding: 32px;
 	margin-bottom: 32px;
-	background: rgba(200, 200, 220, 0.1);
 }
 
 .minisection.model-image {
@@ -135,6 +134,26 @@ ul {
 	list-style-type: none;
 }
 
+.users-list li {
+	width: 100%;
+    padding: 12px;
+	padding-left: 60px;
+    background: #fff;
+    margin: 16px 0;
+    position: relative;
+}
+.users-list .color-block {
+    position: absolute;
+	display: inline-block;
+    width: 48px;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.users-list li.ready {
+	color: green;
+}
 .users-list li.not-ready {
 	color: #e6433c;
 }
@@ -156,11 +175,17 @@ ul {
 	content: " (not ready) (you)";
 }
 
-.users-list .color-block {
-	width: 12px;
-	height: 12px;
-	display: inline-block;
-	margin-right: 8px;
+.timer {
+	display: flex;
+	justify-content: space-between;
+	font-size: 34px;
+	background: #ccc;
+}
+.timer > span {
+	padding: 12px 18px;
+}
+.timer > span:first-child {
+	background: #aaa;
 }
 
 .disconnected-banner {

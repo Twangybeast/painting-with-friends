@@ -49,10 +49,7 @@ socket.on('users_list', (data) => {
 	console.log(data);
 	usersListEl.innerHTML = data.map((u, i) => {
 		let text = u.name || u.id;
-		let classList = '';
-		if (!u.isReady) {
-			classList = 'not-ready';
-		}
+		let classList = u.isReady ? 'ready' : 'not-ready';
 		if (u.id === socket.id) {
 			classList += ' you'
 		}
@@ -76,10 +73,11 @@ socket.on('users_list', (data) => {
 
 socket.on('game_start', (data) => {
 	const players = game_start(data, config);
-	const colorBlocks = document.querySelectorAll('.users-list .color-block');
+	const playerEls = document.querySelectorAll('.users-list li');
 	playersToColors = players.map((p) => p.color);
 	for (let i = 0; i < players.length; i++) {
-		colorBlocks[i].style.background = playersToColors[i];
+		playerEls[i].classList.remove('ready');
+		playerEls[i].querySelector('.color-block').style.background = playersToColors[i];
 	}
 
 	intervalID = setInterval(checkForLines, 10);

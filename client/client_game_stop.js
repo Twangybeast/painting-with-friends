@@ -30,6 +30,11 @@ const game_stop = function(data) {
   clearInterval(intervalID);
   readyButton.classList.remove('hide');
 
-  do_confetti()
+	for (let el of document.querySelectorAll('.users-list li')) {
+    el.classList.remove('ready');
+    el.classList.add('not-ready');
+	}
+
+  do_confetti();
 }
 

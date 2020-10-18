@@ -1,3 +1,7 @@
+function setBackgroundColor(color) {
+  document.documentElement.style.setProperty('--bg', color);
+}
+
 const game_start = function (data, config) {
   // model image
   const image = document.querySelector('img.model');
@@ -11,6 +15,9 @@ const game_start = function (data, config) {
   let me = data.me;
 
   let color = data.players[me].color;
+
+  setBackgroundColor(color);
+
   let path = data.image_path;
   let stop_time = data.stop_time; //UNIX time of stop time
   let deadline = new Date(stop_time);
