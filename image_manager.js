@@ -42,6 +42,17 @@ const IMAGE_DATA = [
             ['#a9ba84'],
             ['#1f1f1d']
         ]
+    },
+    {
+        'id': 4,
+        'path': '/images/image5.png',
+        'name': 'Rick and Morty',
+        'colors': [
+            ['#B4D9EC', '#F8CAA9'],
+            ['#FCF978', '#DECFC9'],
+            ['#846D44', '#010001'],
+            ['#384E73', '#FFFDFF']
+        ]
     }
 ];
 
