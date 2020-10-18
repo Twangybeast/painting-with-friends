@@ -41,7 +41,7 @@ io.on('connection', (socket) => {
 		sendUsersUpdate();
 	});
 
-	socket.on('game_start', game_start.bind(this))
+	socket.on('game_start', game_start(image_manager, connectedSockets))
 	socket.on('draw_line', draw_line.bind(this))
 });
 
