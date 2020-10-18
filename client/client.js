@@ -1,9 +1,10 @@
-const SOCKET_URL = 'http://localhost:8000';
+const room = new URLSearchParams(window.location.search).get('room') || 'xz1kdfj'
+const SOCKET_URL = 'http://localhost:8000?room=' + room;
 const socket = io(SOCKET_URL, { autoConnect: true });
 
 const usersListEl = document.querySelector('.users-list ul');
 const readyButton = document.querySelector('.ready-button');
-
+var intervalID;
 const canvas = document.querySelector('.drawing-canvas');
 const ctx = canvas.getContext('2d');
 const mouse = new MouseJS(canvas);
@@ -55,7 +56,7 @@ socket.on('users_list', (data) => {
 
 socket.on('game_start', (data) => {
 	game_start(data, config);
-	setInterval(checkForLines, 10);
+	intervalID = setInterval(checkForLines, 10);
 });
 socket.on('game_stop', game_stop.bind(this));
 
