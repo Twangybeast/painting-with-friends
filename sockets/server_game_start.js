@@ -56,7 +56,7 @@ module.exports.onGameStart = function(io, socket, data, image_manager, roomSocke
     }
     setTimeout(function () {
         for (let s of roomSockets) {
-            s.emit('game_end', {})
+            s.emit('game_stop', {})
         }
     }, GAME_LENGTH);
 }
