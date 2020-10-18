@@ -15,11 +15,22 @@
 	padding: 0;
 }
 
+@font-face {
+    font-family: 'Hatching Love Demo';
+    src: url('fonts/HatchingLoveDemoRegular.woff2') format('woff2'),
+        url('fonts/HatchingLoveDemoRegular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 body {
 	background-image: url("images/background.jpg");
-	background-size: fill;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 	font-family: 'Open Sans', sans-serif;
-	color: #eee;
+	color: var(--color-3);
 }
 
 button {
@@ -48,6 +59,7 @@ input {
 	background-color: #FFF;
 	cursor: none;	
 	margin: 2px 3px 0 3px;	
+	border-radius: 10px;
 }
 
 .container {
@@ -58,7 +70,7 @@ input {
 
 .header {
 	background: var(--color-1);
-	padding: 32px;
+	padding: 16px;
 	margin-bottom: 32px;
 
 	display: flex;
@@ -66,12 +78,13 @@ input {
 	justify-content: space-between;
 }
 
-.header h1 {
+h1 {
 	color: var(--color-3);
 }
 
 .section {
-	background: var(--color-1);
+	background: rgba(225, 248, 220, 0.9);
+	border-radius: 10px;
 }
 
 .right, .left {
@@ -139,4 +152,24 @@ ul {
 }
 .disconnected-banner.show {
 	display: block;
+}
+
+.footer {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	margin-right: 30px;
+	padding: 16px;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.footer h1{
+	font-size: 2.5em; 
+
+	font-family: 'Hatching Love Demo';
+    font-weight: bold;
+    font-style: normal;
 }
