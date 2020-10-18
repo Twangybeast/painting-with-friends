@@ -1,4 +1,4 @@
-const MY_URL = 'https://paintin.tech'
+const MY_URL = 'http://localhost:8000'
 // handles name change as you type
 
 const nameChange = document.getElementById("name-change");

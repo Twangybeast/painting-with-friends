@@ -4,9 +4,9 @@ if (!name) {
 	name = 'Player#' + Math.floor(Math.random() * 1000 + 1)
 	sessionStorage.setItem('name', name);
 }
-const MY_URL = 'https://paintin.tech'
+const MY_URL = 'http://localhost:8000'
 const SOCKET_URL = MY_URL + '?room=' + room + '&name=' + encodeURIComponent(name);
-const socket = io(SOCKET_URL, { autoConnect: true});
+const socket = io(SOCKET_URL);
 
 const usersListEl = document.querySelector('.users-list ul');
 const readyButton = document.querySelector('.ready-button');
@@ -19,6 +19,8 @@ const dpr = window.devicePixelRatio; // needed to fix blurriness for high DPI di
 let playersToColors = []; // maps player index to their current color
 let playerToPalette = []
 let cursors = []; // a list of {x, y, id}
+
+let hideCursors = false;
 
 const config = {
 	name: '', // TODO
@@ -107,11 +109,13 @@ socket.on('game_start', (data) => {
 		playerEls[i].classList.remove('ready');
 	}
 
+	hideCursors = false;
 	intervalID = setInterval(checkForLines, 10);
 });
 socket.on('game_stop', (data) => {
 	game_stop(data);
 	cursors = [];
+	hideCursors = true;
 });
 socket.on('color_update', (data) => {
 	const colorBlocks = document.querySelectorAll('.users-list .color-block');
@@ -187,8 +191,10 @@ function drawLines() {
 function drawOnCanvas() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	drawLines();
-	drawCursor();
-	drawOtherCursors();
+	if (!hideCursors) {
+		drawCursor();
+		drawOtherCursors();
+	}
 }
 
 function checkForLines() {

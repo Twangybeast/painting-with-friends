@@ -1,8 +1,6 @@
 const GAME_LENGTH = 1000 * 120;
 const IMAGE_CYCLE = [3, 1, 0, 4, 2];
 
-let hasGameStarted = false;
-
 /**
  * Shuffles array in place. ES6 version
  * @param {Array} a items An array containing the items.

@@ -4,8 +4,8 @@ const cors = require('cors');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-const CLIENT_URL = 'https://paintin.tech';
-const PORT = process.env.PORT || 443;
+const CLIENT_URL = 'http://localhost';
+const PORT = process.env.PORT || 8000;
 
 app.use(cors({
 	origin: CLIENT_URL,
@@ -16,10 +16,10 @@ app.use(express.json());
 app.use(express.static(__dirname + '/client'));
 
 // list of connected members
-const connectedSockets = [];
+let connectedSockets = [];
 
-const rooms2sockets = {};
-const roomInfos = {};
+let rooms2sockets = {};
+let roomInfos = {};
 
 // import images
 const image_manager = require('./image_manager')
@@ -150,6 +150,13 @@ http.listen(PORT, () => {
 	console.log(`Server listening on http://localhost:${PORT}`);
 });
 
-app.post('/reset', function(req, res) {
-	res.status(404).json({'data':'Reset not found'});
+app.get('/reset', function(req, res) {
+	for (let s of connectedSockets) {
+		s.disconnect();
+	}
+	connectedSockets = [];
+	rooms2sockets = {};
+	roomInfos = {};
+	console.log('Reset!');
+	res.send('Successfully reset');
 });
