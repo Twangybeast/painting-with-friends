@@ -4,10 +4,10 @@ const IMAGE_DATA = [
         'path': '/images/image1.jpg',
         'name': 'Tom and Jerry',
         'colors': [
-            ['#7d8286'],
-            ['#cd8202'],
-            ['#f9ab97'],
-            ['#ffffff', '#000000']
+            ['#7d8286', '#FCD47C'],
+            ['#cd8202', '#FBEABE'],
+            ['#f9ab97', '#E0181B', '#C8C8C8'],
+            ['#ffffff', '#000000', '#2EA52F']
         ]
     },
     {
@@ -17,8 +17,8 @@ const IMAGE_DATA = [
         'colors': [
             ['#ffd33e'],
             ['#ef5533'],
-            ['#211f20'],
-            ['#ffffff']
+            ['#211f20', '#EE757A'],
+            ['#ffffff', '#8E3E1B']
         ]
     },
     {
@@ -28,8 +28,8 @@ const IMAGE_DATA = [
         'colors': [
             ['#4d6b54'],
             ['#964828'],
-            ['#fadc91'],
-            ['#966213']
+            ['#fadc91', '#BEDACB'],
+            ['#966213', '#161325']
         ]
     },
     {
@@ -37,10 +37,10 @@ const IMAGE_DATA = [
         'path': '/images/image4.png',
         'name': 'Baby Yoda',
         'colors': [
-            ['#8a7138'],
-            ['#c8c1a5'],
-            ['#a9ba84'],
-            ['#1f1f1d']
+            ['#8a7138', '#FBFCF4'],
+            ['#c8c1a5', '#ACEAFF'],
+            ['#a9ba84', '#C9A49C'],
+            ['#1f1f1d', '#6D5525']
         ]
     },
     {
