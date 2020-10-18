@@ -1,3 +1,4 @@
+const MY_URL = 'https://paintin.tech'
 // handles name change as you type
 
 const nameChange = document.getElementById("name-change");
@@ -12,14 +13,14 @@ nameChange.addEventListener('propertychange', inputHandler);
 function addCreateButton(dropDown) {
     let el = document.createElement("li");
     let roomName = generateName();
-    const href = "https://paintin.tech/room.html?room=" + encodeURIComponent(roomName);
+    const href = MY_URL + "/room.html?room=" + encodeURIComponent(roomName);
     el.innerHTML = `Create your own room (${roomName}) <a class='join-room' href='${href}'>Create</a>!`
     dropDown.appendChild(el);
 }
 
 //propagates the drop-down
 const fetch_rooms = async (dropDown) => {
-    fetch("https://paintin.tech/open-rooms")
+    fetch(MY_URL + "/open-rooms")
         .then(response => response.json())
         .then(data => {
             const rooms = data.rooms;
@@ -31,7 +32,7 @@ const fetch_rooms = async (dropDown) => {
                 let innerHTML = `<span class='room-name'>Room <strong>${escapeHtml(element.room)}</strong></span><span>: ${element.current}/${element.max} players`;
 
                 if (!element.started) {
-                    const href = "http://paintin.tech/room.html?room=" + encodeURIComponent(element.room);
+                    const href = MY_URL + "/room.html?room=" + encodeURIComponent(element.room);
                     innerHTML += ` <a class='join-room' href='${href}'>Join</a>`;
                 }
                 innerHTML += '</span>'
