@@ -19,13 +19,13 @@ module.exports.hasGameStarted = (room, roomInfos) => {
 }
 
 module.exports.onGameStart = function(io, socket, data, image_manager, roomSockets, room, roomInfos) {
-    console.log(`Client ${socket.id} is ready!`);
+    console.log(`Client ${socket.id} is ready in room ${room}!`);
     socket.isReady = true;
 
     // wait until 4 players connect before starting the game
     let numReadySockets = roomSockets.map((s) => s.isReady).filter((r) => r).length;
     if (numReadySockets < 4) {
-        console.log(`Currently only ${numReadySockets} players are ready.`);
+        console.log(`Currently only ${numReadySockets} players are ready in room ${room}.`);
         return;
     }
 

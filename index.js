@@ -45,7 +45,7 @@ io.on('connection', (socket) => {
 	connectedSockets.push(socket);
 	rooms2sockets[room].push(socket);
 	socket.join(room)
-	console.log(`New client ${socket.id} connected. Users: ${connectedSockets.length}`);
+	console.log(`New client ${socket.id} connected to room ${room}. Users: ${connectedSockets.length}`);
 	sendUsersUpdate(room);
 
 	socket.on('disconnect', () => {
@@ -67,7 +67,7 @@ io.on('connection', (socket) => {
 			}
 		}
 
-		console.log(`Client ${socket.id} disconnected. Users: ${connectedSockets.length}`);
+		console.log(`Client ${socket.id} disconnected froom room ${room}. Users: ${connectedSockets.length}`);
 		sendUsersUpdate(room);
 	});
 
