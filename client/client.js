@@ -16,6 +16,7 @@ const mouse = new MouseJS(canvas);
 let prevPos = {x: -1, y: -1}; // previous mouse position (updated every few msec)
 const dpr = window.devicePixelRatio; // needed to fix blurriness for high DPI displays
 let playersToColors = []; // maps player index to their color
+let cursors = []; // a list of {x, y, id}
 
 const config = {
 	name: '', // TODO
@@ -28,6 +29,7 @@ const config = {
 	cursorDownColor: "#7289da",
 	cursorLineWidth: 5 * dpr,
 	cursorDownLineWidth: 2 * dpr,
+	otherCursorWidth: 6 * dpr,
 };
 
 // Scale for DPI
@@ -97,15 +99,38 @@ socket.on('draw_line', (data) => {
 	lines.push(data.line);
 });
 
+socket.on('mouse_move', (data) => {
+	cursors = data;
+});
+
 function drawCursor() {
 	ctx.save();
 	ctx.beginPath();
 	let isDrawing = mouse.left.clickTime > mouse.left.releaseTime;
 	let radius = config.drawWidth * dpr / 2;
 	ctx.strokeStyle = isDrawing ? config.cursorDownColor : config.cursorColor;
-	ctx.lineWidth = isDrawing ? config.cursorDownLineWidth : config.cursorLineWidth;
+	ctx.lineWidth = config.cursorDownLineWidth;
+	if (!isDrawing) {
+		ctx.lineWidth = (Math.sin(mouse.getTime() / 300) + 1) * config.cursorLineWidth / 2 + 5;
+	}
+	radius += ctx.lineWidth / 2;
 	ctx.arc(mouse.x, mouse.y, radius, 0, 2 * Math.PI);
 	ctx.stroke();
+	ctx.restore();
+}
+
+function drawOtherCursors() {
+	let radius = (Math.cos(mouse.getTime() / 300) + 1) / 2 * config.otherCursorWidth / 2 + config.otherCursorWidth / 2;
+	ctx.save();
+	for (let i = 0; i < cursors.length; i++) {
+		let cursor = cursors[i];
+		if (cursor.id !== socket.id) {
+			ctx.beginPath();
+			ctx.fillStyle = playersToColors[i];
+			ctx.arc(cursor.x, cursor.y, radius, 0, 2 * Math.PI);
+			ctx.fill();
+		}
+	}
 	ctx.restore();
 }
 
@@ -128,15 +153,18 @@ function drawOnCanvas() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	drawLines();
 	drawCursor();
+	drawOtherCursors();
 }
 
 function checkForLines() {
-	if (mouse.left.clickTime <= mouse.left.releaseTime) {
-		prevPos = {x: -1, y: -1};
+	if (prevPos.x === mouse.x && prevPos.y === mouse.y) {
 		return;
 	}
 
-	if (prevPos.x === mouse.x && prevPos.y === mouse.y) {
+	socket.emit('mouse_move', { x: mouse.x, y: mouse.y });
+
+	if (mouse.left.clickTime <= mouse.left.releaseTime) {
+		prevPos = {x: -1, y: -1};
 		return;
 	}
 

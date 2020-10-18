@@ -85,6 +85,12 @@ io.on('connection', (socket) => {
 		socket.username = data.name;
 		sendUsersUpdate(room);
 	})
+
+	socket.on('mouse_move', (data) => {
+		socket.mouseX = data.x;
+		socket.mouseY = data.y;
+		sendCursorsUpdate(room);
+	})
 });
 
 function sendUsersUpdate(room) {
@@ -93,6 +99,16 @@ function sendUsersUpdate(room) {
 			name: s.username,
 			id: s.id,
 			isReady: s.isReady,
+		})));
+	}
+}
+
+function sendCursorsUpdate(room) {
+	if (rooms2sockets[room]) {
+		io.to(room).emit('mouse_move', rooms2sockets[room].map((s) => ({
+			x: s.mouseX || 0,
+			y: s.mouseY || 0,
+			id: s.id
 		})));
 	}
 }
