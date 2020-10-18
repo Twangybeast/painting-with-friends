@@ -1,6 +1,11 @@
 const room = new URLSearchParams(window.location.search).get('room') || 'xz1kdfj'
-const SOCKET_URL = 'http://localhost:8000?room=' + room;
-const socket = io(SOCKET_URL, { autoConnect: true });
+let name = sessionStorage.getItem('name')
+if (!name) {
+	name = 'Player#' + Math.floor(Math.random() * 1000 + 1)
+	sessionStorage.setItem('name', name)
+}
+const SOCKET_URL = 'http://localhost:8000?room=' + room + '&name=' + encodeURIComponent(name);
+const socket = io(SOCKET_URL, { autoConnect: true});
 
 const usersListEl = document.querySelector('.users-list ul');
 const readyButton = document.querySelector('.ready-button');
@@ -43,7 +48,7 @@ socket.on('disconnect', (reason) => {
 socket.on('users_list', (data) => {
 	console.log(data);
 	usersListEl.innerHTML = data.map((u) => {
-		let text = u.name || u.id.substr(0, 5);
+		let text = u.name || u.id;
 		let classList = '';
 		if (!u.isReady) {
 			classList = 'not-ready';

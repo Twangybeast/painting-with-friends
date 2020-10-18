@@ -28,6 +28,7 @@ const image_manager = require('./image_manager')
 const { onGameStart, hasGameStarted } = require('./sockets/server_game_start');
 
 io.on('connection', (socket) => {
+	socket.username = socket.handshake.query.name
 	let room = socket.handshake.query.room
 	// disallow more than 4 players or joining already started game
 	// console.log(rooms2sockets[room])
@@ -83,7 +84,7 @@ io.on('connection', (socket) => {
 function sendUsersUpdate(room) {
 	if (rooms2sockets[room]) {
 		io.to(room).emit('users_list', rooms2sockets[room].map((s) => ({
-			id: s.id,
+			id: s.username,
 			isReady: s.isReady,
 		})));
 	}
