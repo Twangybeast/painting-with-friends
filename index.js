@@ -63,6 +63,7 @@ io.on('connection', (socket) => {
 	}
 
 	socket.isReady = false;
+	socket.color = 'white';
 	connectedSockets.push(socket);
 	rooms2sockets[room].push(socket);
 	socket.join(room)
@@ -95,6 +96,7 @@ io.on('connection', (socket) => {
 	socket.on('game_start', (data) => {
 		onGameStart(io, socket, data, image_manager, rooms2sockets[room], room, roomInfos);
 		sendUsersUpdate(room);
+		sendColorsUpdate(room);
 	});
 	socket.on('draw_line', (data) => {
 		io.to(room).emit('draw_line', { line: data.line });
@@ -110,6 +112,11 @@ io.on('connection', (socket) => {
 		socket.mouseX = data.x;
 		socket.mouseY = data.y;
 		sendCursorsUpdate(room);
+	})
+
+	socket.on('color_update', (data) => {
+		socket.color = data.color;
+		sendColorsUpdate(room);
 	})
 });
 
@@ -130,6 +137,12 @@ function sendCursorsUpdate(room) {
 			y: s.mouseY || 0,
 			id: s.id
 		})));
+	}
+}
+
+function sendColorsUpdate(room) {
+	if (rooms2sockets[room]) {
+		io.to(room).emit('color_update', rooms2sockets[room].map((s) => s.color));
 	}
 }
 

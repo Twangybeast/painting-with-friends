@@ -13,6 +13,7 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+	transition: 0.2s ease-in-out;
 }
 
 @font-face {
@@ -45,17 +46,30 @@ input {
 	cursor: pointer;
 }
 
-.ready-button {
-	margin-top: 32px;
-	transition: 0.2s;
-}
-
 .ready-button:hover {
 	background: var(--primary);
 }
 
 .ready-button.hide {
 	display: none;
+}
+
+.color-options {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 32px;
+}
+.color-option {
+	width: 50px;
+	height: 50px;
+	box-shadow: 0 0 2px gray;
+	cursor: pointer;
+}
+.color-option.selected {
+	border: 2px solid gray;
+}
+.color-option:hover {
+	box-shadow: 0 0 5px gray;
 }
 
 .drawing-canvas {
@@ -136,7 +150,8 @@ img.model {
 	object-fit: cover;
 	width: 100%;
 	max-width: 100%;
-	margin-bottom: -10px; /* fixes weird bottom spacing bug */
+	margin-bottom: -10px;
+	/* fixes weird bottom spacing bug */
 }
 
 ul {
@@ -181,13 +196,11 @@ ul {
 .users-list li.you::before {
 	content: "";
 	position: absolute;
-
 	width: 0;
 	height: 0;
 	border-top: 6px solid transparent;
 	border-bottom: 6px solid transparent;
 	border-right: 10px solid black;
-
 	right: 34px;
 	top: calc(50% - 5px);
 }
@@ -195,6 +208,7 @@ ul {
 .users-list li.not-ready::after {
 	background: #e6433c;
 }
+
 .users-list li.ready::after {
 	background: green;
 }

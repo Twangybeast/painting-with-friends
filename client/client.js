@@ -15,14 +15,15 @@ const ctx = canvas.getContext('2d');
 const mouse = new MouseJS(canvas);
 let prevPos = {x: -1, y: -1}; // previous mouse position (updated every few msec)
 const dpr = window.devicePixelRatio; // needed to fix blurriness for high DPI displays
-let playersToColors = []; // maps player index to their color
+let playersToColors = []; // maps player index to their current color
 let cursors = []; // a list of {x, y, id}
 
 const config = {
 	name: '', // TODO
 	width: 1000,
 	height: 500,
-	color: "green", // user's color
+	colors: ["white"], // user's selection of colors
+	color: "white", // user's current color
 	drawWidth: 10, // NOT scaled by DPR
 	drawOpacity: 1, // range of 0 to 1
 	cursorColor: "#99aab5",
@@ -74,17 +75,22 @@ socket.on('users_list', (data) => {
 });
 
 socket.on('game_start', (data) => {
-	const players = game_start(data, config);
+	game_start(socket, data, config);
 	const playerEls = document.querySelectorAll('.users-list li');
-	playersToColors = players.map((p) => p.color);
-	for (let i = 0; i < players.length; i++) {
+	for (let i = 0; i < playerEls.length; i++) {
 		playerEls[i].classList.remove('ready');
-		playerEls[i].querySelector('.color-block').style.background = playersToColors[i];
 	}
 
 	intervalID = setInterval(checkForLines, 10);
 });
 socket.on('game_stop', game_stop.bind(this));
+socket.on('color_update', (data) => {
+	const colorBlocks = document.querySelectorAll('.users-list .color-block');
+	playersToColors = data;
+	for (let i = 0; i < playersToColors.length; i++) {
+		colorBlocks[i].style.background = playersToColors[i];
+	}
+});
 
 readyButton.addEventListener('click', () => {
 	socket.emit('game_start', {
