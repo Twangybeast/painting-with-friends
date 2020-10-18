@@ -4,7 +4,7 @@ const game_start = function (data, config) {
   // image name
   const imageTitle = document.querySelector('.model-image > h2');
 
-
+  // clear the canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   lines = [];
 
