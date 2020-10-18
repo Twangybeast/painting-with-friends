@@ -2,6 +2,13 @@
     <head>
         <title>Painting With Friends | Home</title>
         <link rel="stylesheet" href="index.css" />
+        <link type="text/css" rel="stylesheet" href="css/lightgallery.css" /> 
+        <!-- UIkit CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/css/uikit.min.css" />
+
+        <!-- UIkit JS -->
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit-icons.min.js"></script>
     </head>
     <body>
         <!--Open Room Selection-->
@@ -11,7 +18,13 @@
         </div>
         <!--Previous Gallery-->
         <div class="gallery">
-
+            <div uk-lightbox>
+                <a class="uk-button uk-button-default" href="images/image1.jpg">Open Gallery</a>
+                <a class="uk-button uk-button-default" href="images/image2.jpg" style="display: none;"></a>
+                <a class="uk-button uk-button-default" href="images/image3.png" style="display: none;"></a>
+                <a class="uk-button uk-button-default" href="images/image4.png" style="display: none;"></a>
+                <a class="uk-button uk-button-default" href="images/image5.png" style="display: none;"></a>
+            </div>
         </div>
         <!--Form-->
         <div class="change-name">
@@ -23,6 +36,10 @@
         <div class="footer">
             <h1>Painting with Friends</h1>
         </div>
+
+        <script type="text/javascript">
+            lightGallery(document.getElementById('lightgallery')); 
+        </script>
 
         <script src="index.js" charset="utf-8"></script>
     </body>
