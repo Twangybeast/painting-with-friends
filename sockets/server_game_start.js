@@ -54,7 +54,7 @@ module.exports.onGameStart = function(socket, data, image_manager, connectedSock
     }
     setTimeout(function () {
         for (let s of connectedSockets) {
-            s.emit('game_end', {})
+            s.emit('game_stop', {})
         }
     }, GAME_LENGTH);
 }
