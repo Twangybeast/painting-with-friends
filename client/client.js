@@ -17,8 +17,6 @@ const config = {
 	color: "green", // user's color
 	drawWidth: 10, // NOT scaled by DPR
 	drawOpacity: 1, // range of 0 to 1
-	cursorRadius: 10 * dpr,
-	cursorDownRadius: 8 * dpr,
 	cursorColor: "#99aab5",
 	cursorDownColor: "#7289da",
 	cursorLineWidth: 5 * dpr,
@@ -37,7 +35,7 @@ socket.on('connect', () => {
 
 socket.on('disconnect', (reason) => {
 	console.log(`Connection to the server has been lost: ${reason}.`);
-	alert(`Connection to the server has been lost: ${reason}.`);
+	document.querySelector('.disconnected-banner').classList.add('show');
 });
 
 socket.on('users_list', (data) => {
@@ -78,7 +76,7 @@ function drawCursor() {
 	ctx.save();
 	ctx.beginPath();
 	let isDrawing = mouse.left.clickTime > mouse.left.releaseTime;
-	let radius = isDrawing ? config.cursorDownRadius : config.cursorRadius;
+	let radius = config.drawWidth;
 	ctx.strokeStyle = isDrawing ? config.cursorDownColor : config.cursorColor;
 	ctx.lineWidth = isDrawing ? config.cursorDownLineWidth : config.cursorLineWidth;
 	ctx.arc(mouse.x, mouse.y, radius, 0, 2 * Math.PI);

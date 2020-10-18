@@ -30,7 +30,7 @@ module.exports.onGameStart = function(socket, data, image_manager, connectedSock
     console.log(`Game has started!`);
     hasGameStarted = true;
 
-    const image = image_manager.image_data[0];
+    const image = image_manager.image_data[Math.floor(Math.random() * image_manager.image_data.length)];
     let stop_time = Date.now() + GAME_LENGTH
     let payload = {
         'image_path': image['path'],
