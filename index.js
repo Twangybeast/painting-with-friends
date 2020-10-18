@@ -22,15 +22,16 @@ const connectedSockets = [];
 const image_manager = require('./image_manager')
 
 // import socket functions
-const { onGameStart, hasGameStarted } = require('./sockets/server_game_start')
+const { onGameStart, hasGameStarted } = require('./sockets/server_game_start');
 
 io.on('connection', (socket) => {
-	// disallow more than 4 players
-	if (hasGameStarted()) {
+	// disallow more than 4 players or joining already started game
+	if (connectedSockets.length === 4 || hasGameStarted()) {
 		socket.disconnect();
 		return;
 	}
 
+	socket.isReady = false;
 	connectedSockets.push(socket);
 	console.log(`New client ${socket.id} connected. Users: ${connectedSockets.length}`);
 	sendUsersUpdate();
@@ -48,6 +49,7 @@ io.on('connection', (socket) => {
 
 	socket.on('game_start', (data) => {
 		onGameStart(socket, data, image_manager, connectedSockets);
+		sendUsersUpdate();
 	});
 	socket.on('draw_line', (data) => {
 		io.emit('draw_line', { line: data.line });
@@ -55,7 +57,10 @@ io.on('connection', (socket) => {
 });
 
 function sendUsersUpdate() {
-	io.emit('users list', connectedSockets.map((s) => s.id));
+	io.emit('users_list', connectedSockets.map((s) => ({
+		id: s.id,
+		isReady: s.isReady,
+	})));
 }
 
 http.listen(PORT, () => {
