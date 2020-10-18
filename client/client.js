@@ -4,7 +4,7 @@ if (!name) {
 	name = 'Player#' + Math.floor(Math.random() * 1000 + 1)
 	sessionStorage.setItem('name', name);
 }
-const SOCKET_URL = 'http://localhost:8000?room=' + room + '&name=' + encodeURIComponent(name);
+const SOCKET_URL = 'https:/paintin.tech?room=' + room + '&name=' + encodeURIComponent(name);
 const socket = io(SOCKET_URL, { autoConnect: true});
 
 const usersListEl = document.querySelector('.users-list ul');

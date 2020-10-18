@@ -4,8 +4,8 @@ const cors = require('cors');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-const CLIENT_URL = 'http://localhost:3000';
-const PORT = process.env.PORT || 8000;
+const CLIENT_URL = 'http://paintin.tech:443';
+const PORT = process.env.PORT || 443;
 
 app.use(cors({
 	origin: CLIENT_URL,
