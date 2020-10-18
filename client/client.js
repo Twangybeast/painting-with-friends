@@ -6,29 +6,27 @@ const usersListEl = document.querySelector('.users-list ul');
 const canvas = document.querySelector('.drawing-canvas');
 const ctx = canvas.getContext('2d');
 const mouse = new MouseJS(canvas);
-const dpr = window.devicePixelRatio; // needed to fix blurriness for high DPI displays
 
 const config = {
 	width: 1000,
 	height: 500,
-	color: "green", // user's color
-	drawWidth: 10, // NOT scaled by DPR
-	cursorRadius: 10 * dpr,
-	cursorDownRadius: 8 * dpr,
+	cursorRadius: 10 * devicePixelRatio,
 	cursorColor: "#99aab5",
-	cursorDownColor: "#7289da",
-	cursorLineWidth: 5 * dpr,
-	cursorDownLineWidth: 2 * dpr,
+	cursorLineWidth: 5 * devicePixelRatio,
 };
 
 // Scale for DPI
-let width = canvas.width = config.width * dpr;
-let height = canvas.height = config.height * dpr;
+canvas.width = config.width * window.devicePixelRatio;
+canvas.height = config.height * window.devicePixelRatio;
 canvas.style.width = `${config.width}px`;
 canvas.style.height = `${config.height}px`;
 
 //model image
 const image = document.querySelector('.model-image');
+
+// TODO: make this work with resized windows
+let width = canvas.width;
+let height = canvas.height;
 
 socket.on('connect', () => {
 	console.log('Connected to the server via socket');
@@ -48,68 +46,24 @@ socket.on('draw_line', draw_line.bind(this));
 socket.on('game_start', game_start.bind(this));
 socket.on('game_stop', game_stop.bind(this));
 
-let lines = [{ start: [10, 20], end: [200, 480], color: "red", width: 10 }];
-
 function drawCursor() {
 	ctx.save();
 	ctx.beginPath();
-	let isDrawing = mouse.left.clickTime > mouse.left.releaseTime;
-	let radius = isDrawing ? config.cursorDownRadius : config.cursorRadius;
-	ctx.strokeStyle = isDrawing ? config.cursorDownColor : config.cursorColor;
-	ctx.lineWidth = isDrawing ? config.cursorDownLineWidth : config.cursorLineWidth;
-	ctx.arc(mouse.x, mouse.y, radius, 0, 2 * Math.PI);
+	ctx.arc(mouse.x, mouse.y, config.cursorRadius, 0, 2 * Math.PI);
+	ctx.strokeStyle = config.cursorColor;
+	ctx.lineWidth = config.cursorLineWidth;
 	ctx.stroke();
-	ctx.restore();
-}
-
-function drawLines() {
-	ctx.save();
-	ctx.lineCap = "round";
-	for (let line of lines) {
-		ctx.beginPath();
-		ctx.moveTo(line.start[0] * dpr, line.start[1] * dpr);
-		ctx.lineTo(line.end[0] * dpr, line.end[1] * dpr);
-		ctx.strokeStyle = line.color;
-		ctx.lineWidth = line.width * dpr;
-		ctx.stroke();
-	}
 	ctx.restore();
 }
 
 function drawOnCanvas() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	drawLines();
 	drawCursor();
-}
-
-let prevPos = {x: -1, y: -1};
-
-function checkForLines() {
-	if (mouse.left.clickTime <= mouse.left.releaseTime) {
-		prevPos = {x: -1, y: -1};
-		return;
-	}
-
-	if (prevPos.x === mouse.x && prevPos.y === mouse.y) {
-		return;
-	}
-
-	if (prevPos.x !== -1) {
-		let newLine = {
-			start: [prevPos.x, prevPos.y],
-			end: [mouse.x / dpr, mouse.y / dpr],
-			color: config.color,
-			width: config.drawWidth,
-		};
-		lines.push(newLine);
-	}
-	prevPos.x = mouse.x / dpr;
-	prevPos.y = mouse.y / dpr;
 }
 
 function update() {
 	requestAnimationFrame(update);
 	drawOnCanvas();
 }
+
 update();
-setInterval(checkForLines, 10);
