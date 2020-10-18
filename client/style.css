@@ -1,9 +1,9 @@
 :root {
 	--bg: #FFFFFF;
-	--color-1: #E1F8DC;
-	--color-2: #CAF1DE;
-	--color-3: #ACDDDE;
-	--color-4: #FEF8DD;
+	--color-1: #311B92;
+	--color-2: #5E35B1;
+	--color-3: #673AB7;
+	--color-4: #311B92;
 	--color-5: #FFE7C7;
 	--color-6: #F7D8BA;
 	--primary: green;
@@ -54,11 +54,9 @@ input {
 	display: none;
 }
 
-.drawing-canvas {
-	border: 2px solid var(--color-2);
+.drawing-canvas {	
 	background-color: #FFF;
-	cursor: none;	
-	margin: 2px 3px 0 3px;	
+	cursor: none;		
 	border-radius: 10px;
 }
 
@@ -69,7 +67,6 @@ input {
 }
 
 .header {
-	background: var(--color-1);
 	padding: 16px;
 	margin-bottom: 32px;
 
@@ -83,12 +80,18 @@ h1 {
 }
 
 .section {
-	background: rgba(225, 248, 220, 0.9);
+	background: rgba(224, 224, 224, 0.75);
 	border-radius: 10px;
 }
 
-.right, .left {
+.right {
 	padding: 16px;
+	margin-right: 10px;
+}
+
+.left {
+	padding: 16px;
+	margin-left: 10px;
 }
 
 .paint-option {
