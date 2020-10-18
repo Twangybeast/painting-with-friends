@@ -2,6 +2,7 @@ const SOCKET_URL = 'http://localhost:8000';
 const socket = io(SOCKET_URL, { autoConnect: true });
 
 const usersListEl = document.querySelector('.users-list ul');
+const readyButton = document.querySelector('.ready-button');
 
 const canvas = document.querySelector('.drawing-canvas');
 const ctx = canvas.getContext('2d');
@@ -29,15 +30,13 @@ let height = canvas.height = config.height * dpr;
 canvas.style.width = `${config.width}px`;
 canvas.style.height = `${config.height}px`;
 
-//model image
-const image = document.querySelector('.model-image');
-
 socket.on('connect', () => {
 	console.log('Connected to the server via socket');
 });
 
 socket.on('disconnect', (reason) => {
 	console.log(`Connection to the server has been lost: ${reason}.`);
+	alert(`Connection to the server has been lost: ${reason}.`);
 });
 
 socket.on('users list', (data) => {
@@ -46,8 +45,18 @@ socket.on('users list', (data) => {
 	usersListEl.innerHTML = `<li>${socket.id.substr(0, 5)} (you)</li>${lis}`;
 });
 
-socket.on('game_start', game_start.bind(this));
+socket.on('game_start', (data) => {
+	game_start(data);
+	setInterval(checkForLines, 10);
+});
 socket.on('game_stop', game_stop.bind(this));
+
+readyButton.addEventListener('click', () => {
+	socket.emit('game_start', {
+		name: socket.id,
+	});
+	readyButton.classList.add('hide');
+})
 
 let lines = [];
 
@@ -118,4 +127,3 @@ function update() {
 }
 
 update();
-setInterval(checkForLines, 10);
