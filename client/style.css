@@ -126,11 +126,24 @@ ul {
 .users-list li.not-ready {
 	color: #e6433c;
 }
+.users-list li.you {
+	font-weight: bold;
+}
 .users-list li.not-ready::after {
 	content: " (not ready)";
 }
-.users-list li.you {
-	font-weight: bold;
+.users-list li.you::after {
+	content: " (you)";
+}
+.users-list li.you.not-ready::after {
+	content: " (not ready) (you)";
+}
+
+.users-list .color-block {
+	width: 12px;
+	height: 12px;
+	display: inline-block;
+	margin-right: 8px;
 }
 
 .disconnected-banner {
