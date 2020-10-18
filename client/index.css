@@ -41,13 +41,13 @@ html, body {
 }
 
 body {
-	background: linear-gradient(125deg, #03c2d5, #0283d6);
 	color: white;
 	font-size: 20px;
 }
 
 a {
 	color: green;
+	text-decoration: none !important;
 }
 
 .container {
@@ -56,6 +56,7 @@ a {
 	align-items: center;
 	justify-content: center;
 }
+
 .section {
 	height: 100%;
 	padding: 64px;
@@ -66,6 +67,16 @@ a {
 
 .right .instructions {
 	width: 500px;
+	text-shadow: 1px 1px rgba(0,0,0,0.2);
+}
+
+@keyframes rotateBackgroundImage {
+	from {
+		background-position: 100% 50%;
+	}
+	to {
+		background-position: 0% 50%;
+	}
 }
 
 .header-container h1 {
@@ -73,7 +84,18 @@ a {
 	font-weight: bold;
 	text-align: right;
 	letter-spacing: 0.5px;
+
+	background: linear-gradient(to right, #0e59b7, #1137ae, #280b89, #c15b14, #a39819, #0b893a);
+	background-size: 400% 400%;
+	background-position: 0% 50%;
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+
+	animation: rotateBackgroundImage 2s ease-out;
 }
+
+
 
 .gallery {
 	text-align: right;
@@ -94,6 +116,60 @@ a {
 	font-size: 20px;
 	padding: 8px 24px;
 }
+
 .uk-button:hover {
-	background: gray;
+	background: #03c2d5;
+}
+
+.open-rooms {
+	max-height: 300px;
+	overflow-y: auto;
+	text-shadow: 1px 1px rgba(0,0,0,0.2);
+}
+
+#rooms li div {
+	max-width: 400px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.join-room {
+	border-radius: 50px;
+	padding: 0 10px;
+	background: #2fd3e2;
+	font-size: 0.8em;
+	color: white;
+	text-shadow: none;
+}
+.join-room:hover {
+	color: white;
+	background: blue;
+}
+
+canvas.webgl {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	pointer-events: none;
+	background: linear-gradient(125deg, #03c2d5, #0283d6);
+}
+
+::-webkit-scrollbar {
+	width: 12px;
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #2fd3e2;
+	border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #c1e1f3;
+}
+
+::-webkit-scrollbar-thumb:active {
+	background: white;
 }

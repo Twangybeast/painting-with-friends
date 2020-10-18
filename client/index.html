@@ -9,6 +9,7 @@
 	<!-- UIkit JS -->
 	<script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit-icons.min.js"></script>
+	<script src="random-name.js"></script>
 </head>
 
 <body>
@@ -25,7 +26,7 @@
 						<a class="uk-button uk-button-default" href="gallery/yoda.jpg">View Gallery</a>
 						<a class="uk-button uk-button-default" href="gallery/pika.jpg" style="display: none;"></a>
 						<a class="uk-button uk-button-default" href="gallery/monalisa.jpg" style="display: none;"></a>
-						<a class="uk-button uk-button-default" href="gallery/amongus.jpg" style="display: none;"></a>						
+						<a class="uk-button uk-button-default" href="gallery/amongus.jpg" style="display: none;"></a>
 					</div>
 				</div>
 			</div>
@@ -33,9 +34,12 @@
 		<div class="section right">
 			<div class="inner-section">
 				<div class="instructions">
-					How well can you cooperate with your friends and create a painting?
-					In the lobby, set your name by clicking on the name with the black arrow. Once you and 3 other fellow artists are ready, the timer will begin.
-					You and 3 other friends must draw one of the random images that comes up in the left panel. Each is in charge of a different set of colors. Change your color to one of your individual options in the bottom right corner. How closely can you draw the image that comes up?
+					<strong>How well can you cooperate with your friends and create a painting?</strong>
+					<br>
+					In the lobby, set your name by clicking on the name with the black arrow. Once you and 3 other
+					fellow artists are ready, the timer will begin.<br>
+					You and your friends must draw one of the random images that comes up in the left panel. Each artist
+					is in charge of a different set of colors. How closely can you draw the image that comes up?
 				</div>
 				<div class="change-name">
 					<input type="text" id="name-change" placeholder="Username" />
@@ -50,6 +54,9 @@
 	</div>
 
 	<script src="index.js" charset="utf-8"></script>
+	<script src="gooey/three.min.js" charset="utf-8"></script>
+	<script src="gooey/shaders.js" charset="utf-8"></script>
+	<script src="gooey/gooey.js" charset="utf-8"></script>
 </body>
 
 </html>
