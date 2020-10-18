@@ -82,6 +82,10 @@ h1 {
 	color: var(--color-3);
 }
 
+h3 {
+	font-size: 14px;
+}
+
 .section {
 	user-select: none;
 	-webkit-user-select: none;
