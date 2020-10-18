@@ -1,4 +1,5 @@
 const GAME_LENGTH = 1000 * 30;
+const IMAGE_CYCLE = [3, 1, 0, 4, 2];
 
 let hasGameStarted = false;
 
@@ -31,8 +32,15 @@ module.exports.onGameStart = function(io, socket, data, image_manager, roomSocke
 
     console.log(`Game has started in room ${room}!`);
     roomInfos[room]['started'] = true;
+    if (!roomInfos[room]['image_cycle']) {
+        roomInfos[room]['image_cycle'] = Math.floor(Math.random() * IMAGE_CYCLE.length)
+    }
 
-    const image = image_manager.image_data[Math.floor(Math.random() * image_manager.image_data.length)];
+
+
+    const image = image_manager.image_data[IMAGE_CYCLE[roomInfos[room]['image_cycle']]];
+    roomInfos[room]['image_cycle']++;
+    roomInfos[room]['image_cycle'] %= IMAGE_CYCLE.length;
     let stop_time = Date.now() + GAME_LENGTH
     let payload = {
         'image_path': image['path'],
