@@ -15,6 +15,7 @@ const ctx = canvas.getContext('2d');
 const mouse = new MouseJS(canvas);
 let prevPos = {x: -1, y: -1}; // previous mouse position (updated every few msec)
 const dpr = window.devicePixelRatio; // needed to fix blurriness for high DPI displays
+let playersToColors = []; // maps player index to their color
 
 const config = {
 	name: '', // TODO
@@ -28,7 +29,6 @@ const config = {
 	cursorLineWidth: 5 * dpr,
 	cursorDownLineWidth: 2 * dpr,
 };
-console.log(dpr);
 
 // Scale for DPI
 let width = canvas.width = config.width * dpr;
@@ -47,7 +47,7 @@ socket.on('disconnect', (reason) => {
 
 socket.on('users_list', (data) => {
 	console.log(data);
-	usersListEl.innerHTML = data.map((u) => {
+	usersListEl.innerHTML = data.map((u, i) => {
 		let text = u.name || u.id;
 		let classList = '';
 		if (!u.isReady) {
@@ -56,12 +56,20 @@ socket.on('users_list', (data) => {
 		if (u.id === socket.id) {
 			classList += ' you'
 		}
-		return `<li class="${classList}">${text}</li>`;
+		let color = playersToColors[i] || 'transparent';
+		let colorSpan = `<span class="color-block" style="background:${color}"></span>`;
+		return `<li class="${classList}">${colorSpan}${text}</li>`;
 	}).join('');
 });
 
 socket.on('game_start', (data) => {
-	game_start(data, config);
+	const players = game_start(data, config);
+	const colorBlocks = document.querySelectorAll('.users-list .color-block');
+	playersToColors = players.map((p) => p.color);
+	for (let i = 0; i < players.length; i++) {
+		colorBlocks[i].style.background = playersToColors[i];
+	}
+
 	intervalID = setInterval(checkForLines, 10);
 });
 socket.on('game_stop', game_stop.bind(this));
