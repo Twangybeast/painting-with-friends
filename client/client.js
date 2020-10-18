@@ -111,5 +111,6 @@ function update() {
 	requestAnimationFrame(update);
 	drawOnCanvas();
 }
+
 update();
 setInterval(checkForLines, 10);
