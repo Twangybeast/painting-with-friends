@@ -1,7 +1,11 @@
 :root {
-	--bg: #23272a;
-	--color-1: #2c2f33;
-	--color-2: #99aab5;
+	--bg: #FFFFFF;
+	--color-1: #E1F8DC;
+	--color-2: #CAF1DE;
+	--color-3: #ACDDDE;
+	--color-4: #FEF8DD;
+	--color-5: #FFE7C7;
+	--color-6: #F7D8BA;
 	--primary: green;
 }
 
@@ -12,7 +16,8 @@
 }
 
 body {
-	background: var(--bg);
+	background-image: url("images/background.jpg");
+	background-size: fill;
 	font-family: 'Open Sans', sans-serif;
 	color: #eee;
 }
@@ -40,7 +45,9 @@ input {
 
 .drawing-canvas {
 	border: 2px solid var(--color-2);
+	background-color: #FFF;
 	cursor: none;	
+	margin: 2px 3px 0 3px;	
 }
 
 .container {
@@ -57,6 +64,10 @@ input {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+}
+
+.header h1 {
+	color: var(--color-3);
 }
 
 .section {
