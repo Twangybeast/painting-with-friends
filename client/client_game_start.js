@@ -6,7 +6,13 @@ function listenForNewColorSelection(socket, config) {
   let els = document.querySelectorAll('.color-options .color-option');
   for (let i = 0; i < els.length; i++) {
     els[i].addEventListener('click', () => {
+      if (config.color === config.colors[i]) {
+        return;
+      }
       config.color = config.colors[i];
+      document.querySelector('.color-option.selected').classList.remove('selected');
+      els[i].classList.add('selected');
+      setBackgroundColor(config.color);
       socket.emit('color_update', {
         color: config.color,
       });
