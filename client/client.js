@@ -108,7 +108,10 @@ socket.on('game_start', (data) => {
 
 	intervalID = setInterval(checkForLines, 10);
 });
-socket.on('game_stop', game_stop.bind(this));
+socket.on('game_stop', (data) => {
+	game_stop(data);
+	cursors = [];
+});
 socket.on('color_update', (data) => {
 	const colorBlocks = document.querySelectorAll('.users-list .color-block');
 	playersToColors = data;
