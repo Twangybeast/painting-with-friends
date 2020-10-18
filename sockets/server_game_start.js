@@ -1,4 +1,4 @@
-const GAME_LENGTH = 1000 * 30;
+const GAME_LENGTH = 1000 * 120;
 const IMAGE_CYCLE = [3, 1, 0, 4, 2];
 
 let hasGameStarted = false;
