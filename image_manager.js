@@ -54,7 +54,6 @@ const IMAGE_DATA = [
             ['#384E73', '#FFFDFF']
         ]
     },
-    ,
     {
       'id': 5,
       'path': '/images/image6.png',
