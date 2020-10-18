@@ -84,7 +84,8 @@ io.on('connection', (socket) => {
 function sendUsersUpdate(room) {
 	if (rooms2sockets[room]) {
 		io.to(room).emit('users_list', rooms2sockets[room].map((s) => ({
-			id: s.username,
+			name: s.username,
+			id: s.id,
 			isReady: s.isReady,
 		})));
 	}
