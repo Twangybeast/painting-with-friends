@@ -27,6 +27,9 @@ let height = canvas.height = config.height * dpr;
 canvas.style.width = `${config.width}px`;
 canvas.style.height = `${config.height}px`;
 
+//model image
+const image = document.querySelector('.model-image');
+
 socket.on('connect', () => {
 	console.log('Connected to the server via socket');
 });
