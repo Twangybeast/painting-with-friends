@@ -1,16 +1,21 @@
 const path = require('path');
 const fs = require('fs');
+const fetch = require('node-fetch');
 const express = require('express');
 const app = express();
 const cors = require('cors');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-const CLIENT_URL = 'https://www.paintin.tech';
 const PORT = process.env.PORT || 8000;
 
+const WHITELISTED_CORS = [
+	'https://paintin.tech',
+	'https://www.paintin.tech',
+]
+
 app.use(cors({
-	origin: CLIENT_URL,
+	origin: WHITELISTED_CORS,
 }));
 
 app.use(express.json());
@@ -44,8 +49,6 @@ app.get('/open-rooms', (req, res) => {
 		});
 	}
 
-	console.log(result);
-
 	res.send({
 		rooms: result,
 	});
@@ -78,6 +81,8 @@ io.on('connection', (socket) => {
 	socket.join(room)
 	console.log(`New client ${socket.id} connected to room ${room}. Users: ${connectedSockets.length}`);
 	sendUsersUpdate(room);
+
+	log(socket, room);
 
 	socket.on('disconnect', () => {
 		// remove from connectedSockets list
@@ -169,3 +174,11 @@ app.get('/reset', function (req, res) {
 	console.log('Reset!');
 	res.send('Successfully reset');
 });
+
+function log(socket, room) {
+	// wait one second, hopefully user will update name
+	setTimeout(() => {
+		const name = socket.username || '<no name>';
+		console.log(`Player ${name} connected to foyer ${room}`);
+	}, 1000);
+}
