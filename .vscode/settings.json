@@ -3,6 +3,6 @@
         "node_modules{,/**}",
         ".vscode{,/**}"
     ],
-    "appService.defaultWebAppToDeploy": "/subscriptions/bf97c892-05bc-4aca-9380-f5d52289c93f/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/PaintIn",
-    "appService.deploySubpath": "."
+    "appService.deploySubpath": "",
+    "appService.defaultWebAppToDeploy": "/subscriptions/bf97c892-05bc-4aca-9380-f5d52289c93f/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/PaintIn"
 }

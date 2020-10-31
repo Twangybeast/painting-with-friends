@@ -1,8 +1,7 @@
-// const MY_URL = 'https://paintin.azurewebsites.net';
-// const ROOM_URL = 'https://www.paintin.tech';
+const LOCAL_TESTING = false;
 
-const MY_URL = 'http://localhost:8000';
-const ROOM_URL = 'http://localhost:8000';
+const MY_URL = LOCAL_TESTING ? 'http://localhost:8000' : 'https://paintin.azurewebsites.net';
+const ROOM_URL = LOCAL_TESTING ? 'http://localhost:8000' : 'https://paintin.tech';
 
 // handles name change as you type
 
@@ -16,17 +15,17 @@ nameChange.addEventListener('propertychange', inputHandler);
 nameChange.value = localStorage.getItem('name');
 
 function getHrefForRoom(roomName) {
-    return MY_URL + "/foyer/" + encodeURIComponent(roomName);
+    return ROOM_URL + "/foyer/" + encodeURIComponent(roomName);
 }
 
 function addCreateButton(dropDown) {
     let el = document.createElement("li");
     let roomName = generateName();
-    el.innerHTML = `Create your own room (${roomName}) <a class='join-room' href='${getHrefForRoom(roomName)}'>Create</a>!`
+    el.innerHTML = `Create your own room (${roomName})! <a class='join-room' href='${getHrefForRoom(roomName)}'>Create</a>`
     dropDown.appendChild(el);
 }
 
-//propagates the drop-down
+// propagates the drop-down
 const fetch_rooms = async (dropDown) => {
     fetch(MY_URL + "/open-rooms")
         .then(response => response.json())
@@ -39,7 +38,7 @@ const fetch_rooms = async (dropDown) => {
                 var div = document.createElement("div");
                 let innerHTML = `<span class='room-name'>Foyer <strong>${escapeHtml(element.room)}</strong></span><span>: ${element.current}/${element.max} players`;
 
-                if (!element.started) {
+                if (!element.started && element.current < element.max) {
                     innerHTML += ` <a class='join-room' href='${getHrefForRoom(element.room)}'>Join</a>`;
                 }
                 innerHTML += '</span>'

@@ -3,8 +3,8 @@ console.log(name);
 if (!name) {
 	name = 'Player#' + Math.floor(Math.random() * 1000 + 1)
 }
-const MY_URL = 'http://localhost:8000'
-// const MY_URL = 'https://paintin.azurewebsites.net'
+// const MY_URL = 'http://localhost:8000';
+const MY_URL = 'https://paintin.azurewebsites.net';
 const SOCKET_URL = MY_URL + '?room=' + room + '&name=' + encodeURIComponent(name);
 const socket = io(SOCKET_URL);
 
@@ -60,13 +60,13 @@ function getPaletteBackground(colors) {
         if (colors.length === 1) {
             return `background:${colors[0]};`;
         } else if (colors.length === 2) {
-            return `background: linear-gradient(110deg, ${colors[0]} 0%, ${colors[0]} 48%, ${colors[1]} 52%);`
+            return `background: linear-gradient(110deg, ${colors[0]} 0%, ${colors[0]} 49%, ${colors[1]} 50%);`
         } else {
             if (colors.length !== 3) {
                 console.log(`Unexpected colors [${colors}] of length ${colors.length}`)
             }
-            return `background: linear-gradient(110deg, ${colors[0]} 0%, ${colors[0]} 31%, `
-                + `${colors[1]} 35%, ${colors[1]} 64%, ${colors[2]} 68%);`
+            return `background: linear-gradient(110deg, ${colors[0]} 0%, ${colors[0]} 32%, `
+                + `${colors[1]} 33%, ${colors[1]} 66%, ${colors[2]} 67%);`
         }
     }
 }
